@@ -46,7 +46,7 @@ np -h     # 帮助
 
 ## 更新日志
 
-- v0.0.8 三版本绑定，GitHub 直达包
+- GitHub 直达包
 
 
 ## Stargazers
