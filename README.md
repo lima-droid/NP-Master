@@ -51,4 +51,4 @@ np -h     # 帮助
 
 ## Stargazers
 
-[![Star History Chart](https://api.star-history.com/svg?repos=lima-droid/NP-Master&type=Date)](https://star-history.com/#lima-droid/NP-Master&Date)
+[![GitHub Stars](https://img.shields.io/github/stars/lima-droid/NP-Master?style=for-the-badge&logo=github&color=gold)](https://github.com/lima-droid/NP-Master)
