@@ -73,12 +73,6 @@ bash <(wget -qO- https://raw.githubusercontent.com/lima-droid/NP-Master/main/scr
 
 ---
 
-## 📝 更新日志
-
-- **v0.0.8** — 三版本绑定，GitHub 直达包
-
----
-
 ## ⭐ Stargazers
 
 [![Stargazers](https://img.shields.io/github/stars/lima-droid/NP-Master?style=for-the-badge&logo=github&color=gold)](https://github.com/lima-droid/NP-Master)
