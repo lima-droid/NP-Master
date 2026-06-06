@@ -48,3 +48,7 @@ np -h     # 帮助
 
 - v0.0.8 三版本绑定，GitHub 直达包
 
+
+## Stargazers
+
+[![Star History Chart](https://api.star-history.com/svg?repos=lima-droid/NP-Master&type=Date)](https://star-history.com/#lima-droid/NP-Master&Date)
