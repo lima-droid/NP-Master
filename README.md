@@ -4,19 +4,19 @@
   <p><strong>NP 主控端 · 一键安装管理脚本</strong></p>
   <p>
     <a href="https://github.com/lima-droid/NP-Master/releases">
-      <img src="https://img.shields.io/github/v/release/lima-droid/NP-Master?style=flat-square&label=版本&color=2496ed" alt="Release">
+      <img src="https://img.shields.io/github/v/release/lima-droid/NP-Master?style=flat-square&label=Version&color=2496ed" alt="Release">
     </a>
     <a href="https://github.com/lima-droid/NP-Master">
-      <img src="https://img.shields.io/github/stars/lima-droid/NP-Master?style=flat-square&label=Star&color=ffc107" alt="Stars">
+      <img src="https://img.shields.io/github/stars/lima-droid/NP-Master?style=flat-square&label=Stars&color=ffc107" alt="Stars">
     </a>
     <a href="https://github.com/lima-droid/NP-Master/blob/main/LICENSE">
-      <img src="https://img.shields.io/github/license/lima-droid/NP-Master?style=flat-square&label=许可&color=success" alt="License">
+      <img src="https://img.shields.io/github/license/lima-droid/NP-Master?style=flat-square&label=License&color=success" alt="License">
     </a>
     <a href="https://github.com/lima-droid/NP-Master/actions">
-      <img src="https://img.shields.io/github/actions/workflow/status/lima-droid/NP-Master/release.yml?style=flat-square&label=构建&color=ff69b4" alt="Build">
+      <img src="https://img.shields.io/github/actions/workflow/status/lima-droid/NP-Master/release.yml?style=flat-square&label=Build&color=ff69b4" alt="Build">
     </a>
     <a href="https://github.com/lima-droid/NP-Master">
-      <img src="https://img.shields.io/github/last-commit/lima-droid/NP-Master?style=flat-square&label=更新&color=blueviolet" alt="Last Commit">
+      <img src="https://img.shields.io/github/last-commit/lima-droid/NP-Master?style=flat-square&label=Updated&color=blueviolet" alt="Last Commit">
     </a>
   </p>
 </div>
