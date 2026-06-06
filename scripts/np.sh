@@ -6,12 +6,12 @@ export DEBIAN_FRONTEND=noninteractive
 # 本地GitHub包目录
 OFFLINE_DIR='/root/np'
 # 工作目录和临时目录
-TEMP_DIR='/tmp/nodepass'
-WORK_DIR='/etc/nodepass'
+TEMP_DIR='/tmp/np-master'
+WORK_DIR='/etc/np-master'
 GOB_DIR="$WORK_DIR/gob"
 trap "rm -rf $TEMP_DIR >/dev/null 2>&1 ; echo -e '\n' ;exit" INT QUIT TERM EXIT
 mkdir -p $TEMP_DIR
-E[0]="\n Language:\n 1. 简体中文 \n 2. English"
+E[0]="\n 语言选择:\n 1. 简体中文 \n 2. English"
 C[0]="${E[0]}"
 E[1]="1. Supports three versions: stable, development, and classic; 2. Supports switching between the three versions; 3. Offline installation mode"
 C[1]="1. 支持:稳定版 最新版 经典版; 2. 支持三版本间切换 ; 3. GitHub模式"
@@ -23,7 +23,7 @@ E[4]="Please choose: "
 C[4]="请选择: "
 E[5]="The script supports Linux systems only. Feedback: [https://github.com/lima-droid/NP-Master/issues]"
 C[5]="本脚本只支持 Linux 系统，问题反馈:[https://github.com/lima-droid/NP-Master/issues]"
-E[6]="NodePass help menu"
+E[6]="np-master help menu"
 C[6]="帮助菜单"
 E[7]="Install dependence-list:"
 C[7]="安装依赖列表:"
@@ -31,10 +31,10 @@ E[8]="Failed to install download tool (curl). Please install wget or curl manual
 C[8]="无法安装下载工具（curl）。请手动安装 wget 或 curl。"
 E[9]="Failed to copy required files from offline directory."
 C[9]="从GitHub目录复制必需文件失败。"
-E[10]="NodePass installed successfully!"
-C[10]="NodePass 安装成功！"
-E[11]="NodePass has been uninstalled"
-C[11]="NodePass 已卸载"
+E[10]="np-master installed successfully!"
+C[10]="np-master 安装成功！"
+E[11]="np-master has been uninstalled"
+C[11]="np-master 已卸载"
 E[12]="The external network of the current machine is single-stack:\\\n 1. \${SERVER_IPV4_DEFAULT}\${SERVER_IPV6_DEFAULT}\(default\)\\\n 2. Do not listen on the public network, only listen locally"
 C[12]="检测到本机的外网是单栈:\\\n 1. \${SERVER_IPV4_DEFAULT}\${SERVER_IPV6_DEFAULT}，监听全栈 \(默认\)\\\n 2. 不对公网监听，只监听本地"
 E[13]="Please enter the port (1024-65535, NAT machine must use an open port, press Enter for random port):"
@@ -47,15 +47,15 @@ E[16]="0. None TLS encryption (plain TCP) - Fastest performance, no overhead (de
 C[16]="0. 不使用 TLS 加密（明文 TCP） - 最快性能，无开销（默认）\n 1. 自签名证书（自动生成） - 设置简单的良好安全性\n 2. 自定义证书（须预备 crt 和 key 文件） - 具有证书验证的最高安全性"
 E[17]="Please enter the correct option"
 C[17]="请输入正确的选项"
-E[18]="NodePass is already installed, please uninstall it before reinstalling"
-C[18]="NodePass 已安装，请先卸载后再重新安装"
-E[19]="NodePass files copied successfully from offline directory."
-C[19]="已从GitHub目录复制 NodePass 文件"
+E[18]="np-master is already installed, please uninstall it before reinstalling"
+C[18]="np-master 已安装，请先卸载后再重新安装"
+E[19]="np-master files copied successfully from offline directory."
+C[19]="已从GitHub目录复制 np-master 文件"
 E[20]="Cannot check version in offline mode"
 C[20]="GitHub改版无法检查版本"
 E[21]="Running in container environment, skipping service creation and starting process directly"
 C[21]="在容器环境中运行，跳过服务创建，直接启动进程"
-E[22]="NodePass Script Usage / NodePass 脚本使用方法:\n np - Show menu / 显示菜单\n np -i - Install NodePass / 安装 NodePass\n np -u - Uninstall NodePass / 卸载 NodePass\n np -v - Upgrade NodePass / 升级 NodePass\n np -t - Switch NodePass version between stable and development / 在稳定版和最新版之间切换 NodePass\n np -o - Toggle service status (start/stop) / 切换服务状态 (开启/停止)\n np -k - Change NodePass API key / 更换 NodePass API key\n np -c - Change intranet penetration server / 更换内网穿透\n np -s - Show NodePass API info / 显示 NodePass API 信息\n np -h - Show help information / 显示帮助信息\n np -p - Show port forwarding rules / 显示端口转发规则"
+E[22]="np-master Script Usage / np-master 脚本使用方法:\n np - Show menu / 显示菜单\n np -i - Install np-master / 安装 np-master\n np -u - Uninstall np-master / 卸载 np-master\n np -v - Upgrade np-master / 升级 np-master\n np -t - Switch np-master version between stable and development / 在稳定版和最新版之间切换 np-master\n np -o - Toggle service status (start/stop) / 切换服务状态 (开启/停止)\n np -k - Change np-master API key / 更换 np-master API key\n np -c - Change intranet penetration server / 更换内网穿透\n np -s - Show np-master API info / 显示 np-master API 信息\n np -h - Show help information / 显示帮助信息\n np -p - Show port forwarding rules / 显示端口转发规则"
 C[22]="${E[22]}"
 E[23]="Please enter the path to your TLS certificate file:"
 C[23]="请输入您的 TLS 证书文件路径:"
@@ -81,8 +81,8 @@ E[33]="stopped"
 C[33]="已停止"
 E[34]="running"
 C[34]="运行中"
-E[35]="NodePass Installation Information:"
-C[35]="NodePass 安装信息:"
+E[35]="np-master Installation Information:"
+C[35]="np-master 安装信息:"
 E[36]="Port is already in use, please try another one."
 C[36]="端口已被占用，请尝试其他端口。"
 E[37]="Using random port:"
@@ -95,44 +95,44 @@ E[40]="API KEY:"
 C[40]="API KEY:"
 E[41]="Invalid port number, please enter a number between 1024 and 65535."
 C[41]="无效的端口号，请输入1024到65535之间的数字。"
-E[42]="NodePass service has been stopped"
-C[42]="NodePass 服务已关闭"
-E[43]="NodePass service has been started"
-C[43]="NodePass 服务已开启"
+E[42]="np-master service has been stopped"
+C[42]="np-master 服务已关闭"
+E[43]="np-master service has been started"
+C[43]="np-master 服务已开启"
 E[44]="Unable to get local version"
 C[44]="无法获取本地版本"
-E[45]="NodePass Local Core: Stable \$STABLE_LOCAL_VERSION Dev \$DEV_LOCAL_VERSION LTS \$LTS_LOCAL_VERSION"
-C[45]="NodePass 本地核心: 稳定版 \$STABLE_LOCAL_VERSION 最新版 \$DEV_LOCAL_VERSION 经典版 \$LTS_LOCAL_VERSION"
+E[45]="np-master Local Core: Stable \$STABLE_LOCAL_VERSION Dev \$DEV_LOCAL_VERSION LTS \$LTS_LOCAL_VERSION"
+C[45]="np-master 本地核心: 稳定版 \$STABLE_LOCAL_VERSION 最新版 \$DEV_LOCAL_VERSION 经典版 \$LTS_LOCAL_VERSION"
 E[46]="Offline mode: Cannot check remote versions"
 C[46]="GitHub改版：更新请安装覆盖"
 E[47]="Current version is already the latest, no need to upgrade"
 C[47]="当前已是最新版本，不需要升级"
-E[48]="Uninstall NodePass? (y/N)"
-C[48]="是否卸载 NodePass？(y/N)"
+E[48]="Uninstall np-master? (y/N)"
+C[48]="是否卸载 np-master？(y/N)"
 E[49]="Uninstall cancelled"
 C[49]="取消卸载"
-E[50]="Stopping NodePass service..."
-C[50]="停止 NodePass 服务..."
-E[51]="Starting NodePass service..."
-C[51]="启动 NodePass 服务..."
-E[52]="NodePass upgrade successful!"
-C[52]="NodePass 升级成功！"
-E[53]="Failed to start NodePass service, please check logs"
-C[53]="NodePass 服务启动失败，请检查日志"
+E[50]="Stopping np-master service..."
+C[50]="停止 np-master 服务..."
+E[51]="Starting np-master service..."
+C[51]="启动 np-master 服务..."
+E[52]="np-master upgrade successful!"
+C[52]="np-master 升级成功！"
+E[53]="Failed to start np-master service, please check logs"
+C[53]="np-master 服务启动失败，请检查日志"
 E[54]="Rolled back to previous version"
 C[54]="已回滚到之前的版本"
 E[55]="Rollback failed, please check manually"
 C[55]="回滚失败，请手动检查"
 E[56]="Stop API"
 C[56]="关闭 API"
-E[57]="Create shortcuts successfully: script can be run with [ np ] command, and [ nodepass ] binary is directly executable."
-C[57]="创建快捷方式成功: 脚本可通过 [ np ] 命令运行，[ nodepass ] 应用可直接执行!"
+E[57]="Create shortcuts successfully: script can be run with [ np ] command, and [ np-master ] binary is directly executable."
+C[57]="创建快捷方式成功: 脚本可通过 [ np ] 命令运行，[ np-master ] 应用可直接执行!"
 E[58]="Start API"
 C[58]="开启 API"
-E[59]="NodePass is not installed. Configuration file not found"
-C[59]="NodePass 未安装，配置文件不存在"
-E[60]="NodePass API:"
-C[60]="NodePass API:"
+E[59]="np-master is not installed. Configuration file not found"
+C[59]="np-master 未安装，配置文件不存在"
+E[60]="np-master API:"
+C[60]="np-master API:"
 E[61]="PREFIX can only contain lowercase letters, numbers and slashes (/), please re-enter"
 C[61]="PREFIX 只能包含小写字母、数字和斜杠(/)，请重新输入"
 E[62]="Change KEY"
@@ -141,16 +141,16 @@ E[63]="API KEY changed successfully!"
 C[63]="API KEY 更换成功"
 E[64]="Failed to change API KEY"
 C[64]="API KEY 更换失败"
-E[65]="Changing NodePass API KEY..."
-C[65]="正在更换 NodePass API KEY..."
+E[65]="Changing np-master API KEY..."
+C[65]="正在更换 np-master API KEY..."
 E[66]="Current running version: Development GitHub"
 C[66]="当前运行版本为: 最新版"
 E[67]="Current running version: Stable GitHub"
 C[67]="当前运行版本为: 稳定版"
 E[68]="Please enter the IP of the public machine (leave blank to not penetrate):"
-C[68]="如要把内网的 API 穿透到公网的 NodePass 服务端，请输入公网机器的 IP (留空则不穿透):"
+C[68]="如要把内网的 API 穿透到公网的 np-master 服务端，请输入公网机器的 IP (留空则不穿透):"
 E[69]="Please enter the port of the public machine:"
-C[69]="请输入穿透到公网的 NodePass 服务端的端口:"
+C[69]="请输入穿透到公网的 np-master 服务端的端口:"
 E[70]="Change intranet penetration server"
 C[70]="更换内网穿透"
 E[71]="Please enter the password (default is no password):"
@@ -179,18 +179,18 @@ E[82]="Running the service of intranet penetration on the server side:"
 C[82]="内网穿透的服务端运行:"
 E[83]="Failed to retrieve intranet penetration instance. Instance ID: \${INSTANCE\_ID}"
 C[83]="获取内网穿透实例失败，实例ID: \${INSTANCE_ID}"
-E[84]="Please select the NodePass core to run. Use [np -t] to switch after installation:\\\n 1. Stable version - Suitable for production environments \(default\)\\\n 2. Development version - Contains latest features, may be unstable\\\n 3. Classic version - Long-term support version"
-C[84]="选择 NodePass 内核（安装后可用 [np -t] 切换）：1. 稳定（v1.15.0） 2. 最新（v1.16.0） 3. 经典（v1.10.3）"
+E[84]="Please select the np-master core to run. Use [np -t] to switch after installation:\\\n 1. Stable version - Suitable for production environments \(default\)\\\n 2. Development version - Contains latest features, may be unstable\\\n 3. Classic version - Long-term support version"
+C[84]="选择 np-master 内核（安装后可用 [np -t] 切换）：1. 稳定（v1.15.0） 2. 最新（v1.16.0） 3. 经典（v1.10.3）"
 E[85]="Getting machine IP address..."
 C[85]="获取机器 IP 地址中..."
-E[86]="Switching NodePass version..."
-C[86]="正在切换 NodePass 版本..."
+E[86]="Switching np-master version..."
+C[86]="正在切换 np-master 版本..."
 E[87]="Switched successfully"
 C[87]="已成功切换"
 E[88]="Please select the version to switch to (default is 3):"
 C[88]="请选择要切换到的版本 (默认为 3):"
-E[89]="NodePass version switch failed"
-C[89]="NodePass 版本切换失败"
+E[89]="np-master version switch failed"
+C[89]="np-master 版本切换失败"
 E[90]="URI:"
 C[90]="URI:"
 E[91]="No upgrade available for both stable, development and classic versions"
@@ -222,11 +222,11 @@ C[103]="取消切换"
 E[104]="Please select the version to switch to (default is 3):"
 C[104]="请选择要切换到的版本 (默认为 3):"
 E[105]="Offline installation - copying files from local directory: $OFFLINE_DIR"
-C[105]="GitHub - 从本地目录复制文件: $OFFLINE_DIR"
+C[105]="GitHub - 从本地目录复制文件: /root/np"
 E[106]="Required file missing: "
 C[106]="缺少必需文件: "
-E[107]="Offline package directory not found: $OFFLINE_DIR"
-C[107]="GitHub包目录未找到: $OFFLINE_DIR"
+E[107]="File directory not found: $OFFLINE_DIR"
+C[107]="文件目录未找到: /root/np"
 E[108]="Checking offline package directory..."
 C[108]="检查GitHub包目录..."
 E[109]="Offline package directory exists"
@@ -239,12 +239,12 @@ E[112]="Upgraded "
 C[112]="已升级 "
 E[113]="Local management script created successfully"
 C[113]="本地管理脚本创建成功"
-E[114]="Downloading offline package from backup source..."
-C[114]="从备用源下载GitHub包..."
+E[114]="Downloading files from GitHub..."
+C[114]="正在从 GitHub 下载文件..."
 E[115]="Backup source download completed"
-C[115]="备用源下载完成"
+C[115]="文件下载完成"
 E[116]="Backup source download failed"
-C[116]="备用源下载失败"
+C[116]="文件下载失败，请检查网络"
 E[117]="Deleting temporary files..."
 C[117]="删除临时文件..."
 E[118]="Checking backup file..."
@@ -265,30 +265,27 @@ hint() { echo -e "\033[33m\033[01m$*\033[0m"; } # 黄色
 success() { echo -e "\033[32m\033[01m$*\033[0m"; } # 绿色
 reading() { read -rp "$(info "$1")" "$2"; }
 text() { eval echo "\${${L}[$*]}"; }
-# 从备用源下载GitHub包
-download_backup_offline_package() {
-  info " $(text 114) "
+# 从 GitHub raw 直接下载文件
+download_files_from_github() {
   
-  # 下载GitHub包到 /root/np 目录
+  # 从 np-master 仓库直接下载三个内核版本
   mkdir -p /root/np
-  cd /root
-  wget -qO npsh.zip https://raw.githubusercontent.com/lima-droid/NP-Master/main/releases/np-stb
-  unzip -j -q npsh.zip "np-main/np/*" -d /root/np
-  rm -rf npsh.zip
-  
-  if [ $? -eq 0 ]; then
-    info " $(text 115) "
-  else
+  for BIN in np-stb np-dev np-lts qrencode; do
+    wget -qO /root/np/$BIN https://raw.githubusercontent.com/lima-droid/np-master/main/releases/$BIN
+    chmod +x /root/np/$BIN 2>/dev/null
+  done
+
+  if [ -f /root/np/np-stb ]; then
+    :; else
     warning " $(text 116) "
     return 1
   fi
 }
-# 检查GitHub包目录，如果没有则从备用源下载
+# 检查离线目录，没有则直接从 GitHub 下载
 check_and_prepare_offline_files() {
   # 检查GitHub目录是否存在
   if [ ! -d "$OFFLINE_DIR" ]; then
-    hint "GitHub包目录未找到，尝试从备用源下载..."
-    download_backup_offline_package
+    download_files_from_github
    
     # 再次检查GitHub目录
     if [ ! -d "$OFFLINE_DIR" ]; then
@@ -296,9 +293,6 @@ check_and_prepare_offline_files() {
     fi
   fi
  
-  info " $(text 105) "
-  info " $(text 108) "
-  info " $(text 109) "
  
   # 必需文件列表
   local required_files=("np-stb" "np-dev" "np-lts" "qrencode")
@@ -311,10 +305,9 @@ check_and_prepare_offline_files() {
     fi
   done
  
-  # 如果有缺失文件，尝试从备用源下载
+  # 如果有缺失文件，从 GitHub 补全
   if [ ${#missing_files[@]} -gt 0 ]; then
-    hint "部分文件缺失，尝试从备用源下载..."
-    download_backup_offline_package
+    download_files_from_github
    
     # 重新检查文件
     missing_files=()
@@ -338,7 +331,6 @@ check_and_prepare_offline_files() {
     chmod +x "$TEMP_DIR/$file" 2>/dev/null
   done
  
-  info " $(text 19) "
 }
 # 显示帮助信息
 help() {
@@ -361,73 +353,73 @@ check_system() {
       PACKAGE_INSTALL='apk add --no-cache'
       PACKAGE_UPDATE='apk update -f'
       PACKAGE_UNINSTALL='apk del'
-      SERVICE_START='rc-service nodepass start'
-      SERVICE_STOP='rc-service nodepass stop'
-      SERVICE_RESTART='rc-service nodepass restart'
-      SERVICE_STATUS='rc-service nodepass status'
+      SERVICE_START='rc-service np-master start'
+      SERVICE_STOP='rc-service np-master stop'
+      SERVICE_RESTART='rc-service np-master restart'
+      SERVICE_STATUS='rc-service np-master status'
       SYSTEMCTL='rc-service'
-      SYSTEMCTL_ENABLE='rc-update add nodepass'
-      SYSTEMCTL_DISABLE='rc-update del nodepass'
+      SYSTEMCTL_ENABLE='rc-update add np-master'
+      SYSTEMCTL_DISABLE='rc-update del np-master'
       ;;
     arch)
       PACKAGE_INSTALL='pacman -S --noconfirm'
       PACKAGE_UPDATE='pacman -Syu --noconfirm'
       PACKAGE_UNINSTALL='pacman -R --noconfirm'
-      SERVICE_START='systemctl start nodepass'
-      SERVICE_STOP='systemctl stop nodepass'
-      SERVICE_RESTART='systemctl restart nodepass'
-      SERVICE_STATUS='systemctl status nodepass'
+      SERVICE_START='systemctl start np-master'
+      SERVICE_STOP='systemctl stop np-master'
+      SERVICE_RESTART='systemctl restart np-master'
+      SERVICE_STATUS='systemctl status np-master'
       SYSTEMCTL='systemctl'
-      SYSTEMCTL_ENABLE='systemctl enable nodepass'
-      SYSTEMCTL_DISABLE='systemctl disable nodepass'
+      SYSTEMCTL_ENABLE='systemctl enable np-master'
+      SYSTEMCTL_DISABLE='systemctl disable np-master'
       ;;
     debian|ubuntu)
       PACKAGE_INSTALL='apt-get -y install'
       PACKAGE_UPDATE='apt-get update'
       PACKAGE_UNINSTALL='apt-get -y autoremove'
-      SERVICE_START='systemctl start nodepass'
-      SERVICE_STOP='systemctl stop nodepass'
-      SERVICE_RESTART='systemctl restart nodepass'
-      SERVICE_STATUS='systemctl status nodepass'
+      SERVICE_START='systemctl start np-master'
+      SERVICE_STOP='systemctl stop np-master'
+      SERVICE_RESTART='systemctl restart np-master'
+      SERVICE_STATUS='systemctl status np-master'
       SYSTEMCTL='systemctl'
-      SYSTEMCTL_ENABLE='systemctl enable nodepass'
-      SYSTEMCTL_DISABLE='systemctl disable nodepass'
+      SYSTEMCTL_ENABLE='systemctl enable np-master'
+      SYSTEMCTL_DISABLE='systemctl disable np-master'
       ;;
     centos|fedora)
       PACKAGE_INSTALL='yum -y install'
       PACKAGE_UPDATE='yum -y update'
       PACKAGE_UNINSTALL='yum -y autoremove'
-      SERVICE_START='systemctl start nodepass'
-      SERVICE_STOP='systemctl stop nodepass'
-      SERVICE_RESTART='systemctl restart nodepass'
-      SERVICE_STATUS='systemctl status nodepass'
+      SERVICE_START='systemctl start np-master'
+      SERVICE_STOP='systemctl stop np-master'
+      SERVICE_RESTART='systemctl restart np-master'
+      SERVICE_STATUS='systemctl status np-master'
       SYSTEMCTL='systemctl'
-      SYSTEMCTL_ENABLE='systemctl enable nodepass'
-      SYSTEMCTL_DISABLE='systemctl disable nodepass'
+      SYSTEMCTL_ENABLE='systemctl enable np-master'
+      SYSTEMCTL_DISABLE='systemctl disable np-master'
       ;;
     OpenWRT)
       PACKAGE_INSTALL='opkg install'
       PACKAGE_UPDATE='opkg update'
       PACKAGE_UNINSTALL='opkg remove'
-      SERVICE_START='/etc/init.d/nodepass start'
-      SERVICE_STOP='/etc/init.d/nodepass stop'
-      SERVICE_RESTART='/etc/init.d/nodepass restart'
-      SERVICE_STATUS='/etc/init.d/nodepass status'
+      SERVICE_START='/etc/init.d/np-master start'
+      SERVICE_STOP='/etc/init.d/np-master stop'
+      SERVICE_RESTART='/etc/init.d/np-master restart'
+      SERVICE_STATUS='/etc/init.d/np-master status'
       SYSTEMCTL='/etc/init.d'
-      SYSTEMCTL_ENABLE='/etc/init.d/nodepass enable'
-      SYSTEMCTL_DISABLE='/etc/init.d/nodepass disable'
+      SYSTEMCTL_ENABLE='/etc/init.d/np-master enable'
+      SYSTEMCTL_DISABLE='/etc/init.d/np-master disable'
       ;;
     *)
       PACKAGE_INSTALL='apt-get -y install'
       PACKAGE_UPDATE='apt-get update'
       PACKAGE_UNINSTALL='apt-get -y autoremove'
-      SERVICE_START='systemctl start nodepass'
-      SERVICE_STOP='systemctl stop nodepass'
-      SERVICE_RESTART='systemctl restart nodepass'
-      SERVICE_STATUS='systemctl status nodepass'
+      SERVICE_START='systemctl start np-master'
+      SERVICE_STOP='systemctl stop np-master'
+      SERVICE_RESTART='systemctl restart np-master'
+      SERVICE_STATUS='systemctl status np-master'
       SYSTEMCTL='systemctl'
-      SYSTEMCTL_ENABLE='systemctl enable nodepass'
-      SYSTEMCTL_DISABLE='systemctl disable nodepass'
+      SYSTEMCTL_ENABLE='systemctl enable np-master'
+      SYSTEMCTL_DISABLE='systemctl disable np-master'
       ;;
   esac
   # 如果在容器环境中，覆盖服务管理方式
@@ -435,7 +427,7 @@ check_system() {
 }
 # 检查安装状态，状态码: 2 未安装， 1 已安装未运行， 0 运行中
 check_install() {
-  if [ ! -f "$WORK_DIR/nodepass" ]; then
+  if [ ! -f "$WORK_DIR/np-master" ]; then
     return 2
   else
     # 根据服务管理方式获取 http 或 https
@@ -446,11 +438,11 @@ check_install() {
         HTTP_S="https"
       fi
     elif [ "$SERVICE_MANAGE" = "systemctl" ]; then
-      grep -q '^ExecStart=.*tls=0' /etc/systemd/system/nodepass.service && HTTP_S="http" || HTTP_S="https"
+      grep -q '^ExecStart=.*tls=0' /etc/systemd/system/np-master.service && HTTP_S="http" || HTTP_S="https"
     elif [ "$SERVICE_MANAGE" = "rc-service" ]; then
-      grep -q '^command_args=.*tls=0' /etc/init.d/nodepass && HTTP_S="http" || HTTP_S="https"
+      grep -q '^command_args=.*tls=0' /etc/init.d/np-master && HTTP_S="http" || HTTP_S="https"
     elif [ "$SERVICE_MANAGE" = "init.d" ]; then
-      grep -q '^PROG=.*tls=0' /etc/init.d/nodepass && HTTP_S="http" || HTTP_S="https"
+      grep -q '^PROG=.*tls=0' /etc/init.d/np-master && HTTP_S="http" || HTTP_S="https"
     else
       HTTP_S="https" # 默认使用 https
     fi
@@ -458,26 +450,26 @@ check_install() {
   if [ "$IN_CONTAINER" = 1 ] || [ "$SERVICE_MANAGE" = "none" ]; then
     if [ $(type -p pgrep) ]; then
       # 过滤掉僵尸进程 <defunct>
-      if pgrep -laf "nodepass" | grep -vE "grep|<defunct>" | grep -q "nodepass"; then
+      if pgrep -laf "np-master" | grep -vE "grep|<defunct>" | grep -q "np-master"; then
         return 0
       else
         return 1
       fi
     else
       # 过滤掉僵尸进程 <defunct>
-      if ps -ef | grep -vE "grep|<defunct>" | grep -q "nodepass"; then
+      if ps -ef | grep -vE "grep|<defunct>" | grep -q "np-master"; then
         return 0
       else
         return 1
       fi
     fi
-  elif [ "$SERVICE_MANAGE" = "systemctl" ] && ! systemctl is-active nodepass &>/dev/null; then
+  elif [ "$SERVICE_MANAGE" = "systemctl" ] && ! systemctl is-active np-master &>/dev/null; then
     return 1
-  elif [ "$SERVICE_MANAGE" = "rc-service" ] && ! rc-service nodepass status &>/dev/null; then
+  elif [ "$SERVICE_MANAGE" = "rc-service" ] && ! rc-service np-master status &>/dev/null; then
     return 1
   elif [ "$SERVICE_MANAGE" = "init.d" ]; then
     # OpenWRT 系统检查服务状态
-    if [ -f "/var/run/nodepass.pid" ] && kill -0 $(cat "/var/run/nodepass.pid" 2>/dev/null) >/dev/null 2>&1; then
+    if [ -f "/var/run/np-master.pid" ] && kill -0 $(cat "/var/run/np-master.pid" 2>/dev/null) >/dev/null 2>&1; then
       return 0
     else
       return 1
@@ -642,7 +634,8 @@ select_language() {
   if [ -n "$ARGS_LANGUAGE" ]; then
     case "$ARGS_LANGUAGE" in
       1|zh|CN|cn|chinese|C|c)
-        L=C
+        L=C && hint " $(text 0) \n" && reading " $(text 4) " LANGUAGE_CHOICE
+    [ "$LANGUAGE_CHOICE" = 2 ] && L=E
         ;;
       2|en|EN|english|E|e)
         L=E
@@ -661,7 +654,7 @@ select_language() {
     [ "$LANGUAGE_CHOICE" = 2 ] && L=E
   fi
 }
-# 查询 NodePass API URL
+# 查询 NP API URL
 get_api_url() {
   # 从data文件中获取SERVER_IP
   [ -s "$WORK_DIR/data" ] && source "$WORK_DIR/data"
@@ -675,20 +668,20 @@ get_api_url() {
       else
         # 如果data文件中没有CMD，则从进程中获取，过滤掉僵尸进程
         if [ $(type -p pgrep) ]; then
-          local CMD_LINE=$(pgrep -af "nodepass" | grep -v "grep\|sed\|<defunct>" | sed -n 's/.*nodepass \(.*\)/\1/p')
+          local CMD_LINE=$(pgrep -af "np-master" | grep -v "grep\|sed\|<defunct>" | sed -n 's/.*np-master \(.*\)/\1/p')
         else
-          local CMD_LINE=$(ps -ef | grep -v "grep\|sed\|<defunct>" | grep "nodepass" | sed -n 's/.*nodepass \(.*\)/\1/p')
+          local CMD_LINE=$(ps -ef | grep -v "grep\|sed\|<defunct>" | grep "np-master" | sed -n 's/.*np-master \(.*\)/\1/p')
         fi
       fi
     # 根据不同系统类型获取守护文件路径
-    elif [ "$SERVICE_MANAGE" = "systemctl" ] && [ -s "/etc/systemd/system/nodepass.service" ]; then
-      local CMD_LINE=$(sed -n 's/.*ExecStart=.*\(master.*\)"/\1/p' "/etc/systemd/system/nodepass.service")
-    elif [ "$SERVICE_MANAGE" = "rc-service" ] && [ -s "/etc/init.d/nodepass" ]; then
+    elif [ "$SERVICE_MANAGE" = "systemctl" ] && [ -s "/etc/systemd/system/np-master.service" ]; then
+      local CMD_LINE=$(sed -n 's/.*ExecStart=.*\(master.*\)"/\1/p' "/etc/systemd/system/np-master.service")
+    elif [ "$SERVICE_MANAGE" = "rc-service" ] && [ -s "/etc/init.d/np-master" ]; then
       # 从OpenRC服务文件中提取CMD行
-      local CMD_LINE=$(sed -n 's/.*command_args.*\(master.*\)/\1/p' "/etc/init.d/nodepass")
-    elif [ "$SERVICE_MANAGE" = "init.d" ] && [ -s "/etc/init.d/nodepass" ]; then
+      local CMD_LINE=$(sed -n 's/.*command_args.*\(master.*\)/\1/p' "/etc/init.d/np-master")
+    elif [ "$SERVICE_MANAGE" = "init.d" ] && [ -s "/etc/init.d/np-master" ]; then
       # 从OpenWRT服务文件中提取CMD行
-      local CMD_LINE=$(sed -n 's/^CMD="\([^"]\+\)"/\1/p' "/etc/init.d/nodepass")
+      local CMD_LINE=$(sed -n 's/^CMD="\([^"]\+\)"/\1/p' "/etc/init.d/np-master")
     fi
     # 如果找到了CMD行，通过正则提取各个参数
     if [ -n "$CMD_LINE" ]; then
@@ -728,7 +721,7 @@ get_api_url() {
     warning " $(text 59) "
   fi
 }
-# 查询 NodePass KEY
+# 查询 NP KEY
 get_api_key() {
   # 从nodepass.gob文件中提取KEY
   if [ -s "$WORK_DIR/gob/nodepass.gob" ]; then
@@ -789,8 +782,8 @@ get_local_version() {
   fi
  
   # 获取当前运行的版本
-  if [ -L "$WORK_DIR/nodepass" ]; then
-    local GET_SYMLINK_TARGET=$(readlink "$WORK_DIR/nodepass" 2>/dev/null)
+  if [ -L "$WORK_DIR/np-master" ]; then
+    local GET_SYMLINK_TARGET=$(readlink "$WORK_DIR/np-master" 2>/dev/null)
     if [[ "$GET_SYMLINK_TARGET" == *"np-dev"* ]]; then
       VERSION_TYPE_TEXT=$(text 66)
       [ -f "$WORK_DIR/np-dev" ] && RUNNING_LOCAL_VERSION=$("$WORK_DIR/np-dev" --version 2>/dev/null | head -n1 | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+[^[:space:]]*' || echo "")
@@ -803,59 +796,59 @@ get_local_version() {
     fi
   fi
  
-  # 如果软链接不存在，直接检查 nodepass 文件
-  if [ -z "$VERSION_TYPE_TEXT" ] && [ -f "$WORK_DIR/nodepass" ]; then
+  # 如果软链接不存在，直接检查 np-master 文件
+  if [ -z "$VERSION_TYPE_TEXT" ] && [ -f "$WORK_DIR/np-master" ]; then
     # 检查实际文件是什么版本
-    if cmp -s "$WORK_DIR/nodepass" "$WORK_DIR/np-dev" 2>/dev/null; then
+    if cmp -s "$WORK_DIR/np-master" "$WORK_DIR/np-dev" 2>/dev/null; then
       VERSION_TYPE_TEXT=$(text 66)
-      RUNNING_LOCAL_VERSION=$("$WORK_DIR/nodepass" --version 2>/dev/null | head -n1 | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+[^[:space:]]*' || echo "")
-    elif cmp -s "$WORK_DIR/nodepass" "$WORK_DIR/np-stb" 2>/dev/null; then
+      RUNNING_LOCAL_VERSION=$("$WORK_DIR/np-master" --version 2>/dev/null | head -n1 | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+[^[:space:]]*' || echo "")
+    elif cmp -s "$WORK_DIR/np-master" "$WORK_DIR/np-stb" 2>/dev/null; then
       VERSION_TYPE_TEXT=$(text 67)
-      RUNNING_LOCAL_VERSION=$("$WORK_DIR/nodepass" --version 2>/dev/null | head -n1 | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+[^[:space:]]*' || echo "")
-    elif cmp -s "$WORK_DIR/nodepass" "$WORK_DIR/np-lts" 2>/dev/null; then
+      RUNNING_LOCAL_VERSION=$("$WORK_DIR/np-master" --version 2>/dev/null | head -n1 | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+[^[:space:]]*' || echo "")
+    elif cmp -s "$WORK_DIR/np-master" "$WORK_DIR/np-lts" 2>/dev/null; then
       VERSION_TYPE_TEXT=$(text 98)
-      RUNNING_LOCAL_VERSION=$("$WORK_DIR/nodepass" --version 2>/dev/null | head -n1 | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+[^[:space:]]*' || echo "")
+      RUNNING_LOCAL_VERSION=$("$WORK_DIR/np-master" --version 2>/dev/null | head -n1 | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+[^[:space:]]*' || echo "")
     fi
   fi
  
   # 如果仍然无法确定，使用通用的方法
-  if [ -z "$VERSION_TYPE_TEXT" ] && [ -f "$WORK_DIR/nodepass" ]; then
-    RUNNING_LOCAL_VERSION=$("$WORK_DIR/nodepass" --version 2>/dev/null | head -n1 | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+[^[:space:]]*' || echo "")
+  if [ -z "$VERSION_TYPE_TEXT" ] && [ -f "$WORK_DIR/np-master" ]; then
+    RUNNING_LOCAL_VERSION=$("$WORK_DIR/np-master" --version 2>/dev/null | head -n1 | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+[^[:space:]]*' || echo "")
   fi
 }
-# 切换 NodePass 服务状态（开启/停止）
+# 切换 NP 服务状态（开启/停止）
 on_off() {
-  # 检查 NodePass 是否正在运行
+  # 检查 NP 是否正在运行
   if [ "$IN_CONTAINER" = 1 ] || [ "$SERVICE_MANAGE" = "none" ]; then
     if [ $(type -p pgrep) ]; then
       # 过滤掉僵尸进程
-      if pgrep -laf "nodepass" | grep -vE "<defunct>|grep" | grep -q "nodepass"; then
+      if pgrep -laf "np-master" | grep -vE "<defunct>|grep" | grep -q "np-master"; then
         RUNNING=1
       else
         RUNNING=0
       fi
     else
       # 过滤掉僵尸进程
-      if ps -ef | grep -vE "grep|<defunct>" | grep -q "nodepass"; then
+      if ps -ef | grep -vE "grep|<defunct>" | grep -q "np-master"; then
         RUNNING=1
       else
         RUNNING=0
       fi
     fi
   elif [ "$SERVICE_MANAGE" = "systemctl" ]; then
-    if systemctl is-active nodepass >/dev/null 2>&1; then
+    if systemctl is-active np-master >/dev/null 2>&1; then
       RUNNING=1
     else
       RUNNING=0
     fi
   elif [ "$SERVICE_MANAGE" = "rc-service" ]; then
-    if rc-service nodepass status | grep -q "started"; then
+    if rc-service np-master status | grep -q "started"; then
       RUNNING=1
     else
       RUNNING=0
     fi
   elif [ "$SERVICE_MANAGE" = "init.d" ]; then
-    if [ -f "/var/run/nodepass.pid" ] && kill -0 $(cat "/var/run/nodepass.pid" 2>/dev/null) >/dev/null 2>&1; then
+    if [ -f "/var/run/np-master.pid" ] && kill -0 $(cat "/var/run/np-master.pid" 2>/dev/null) >/dev/null 2>&1; then
       RUNNING=1
     else
       RUNNING=0
@@ -863,24 +856,24 @@ on_off() {
   fi
   # 根据当前状态执行相反操作
   if [ "$RUNNING" = 1 ]; then
-    stop_nodepass
+    stop_np-master
     info " $(text 42) "
   else
-    start_nodepass
+    start_np-master
     info " $(text 43) "
   fi
 }
-# 启动 NodePass 服务
-start_nodepass() {
+# 启动 NP 服务
+start_np-master() {
   info " $(text 51) "
   # 先清理可能存在的僵尸进程
   if [ "$IN_CONTAINER" = 1 ] || [ "$SERVICE_MANAGE" = "none" ]; then
     # 查找僵尸进程并尝试清理
     if [ $(type -p pgrep) ]; then
-      ZOMBIE_PIDS=$(pgrep -f "nodepass" 2>/dev/null | xargs ps -p 2>/dev/null | grep "<defunct>" | awk '{print $1}')
+      ZOMBIE_PIDS=$(pgrep -f "np-master" 2>/dev/null | xargs ps -p 2>/dev/null | grep "<defunct>" | awk '{print $1}')
       [ -n "$ZOMBIE_PIDS" ] && echo "$ZOMBIE_PIDS" | xargs -r kill -9 >/dev/null 2>&1
     else
-      ZOMBIE_PIDS=$(ps -ef | grep -v grep | grep "nodepass" | grep "<defunct>" | awk '{print $2}')
+      ZOMBIE_PIDS=$(ps -ef | grep -v grep | grep "np-master" | grep "<defunct>" | awk '{print $2}')
       [ -n "$ZOMBIE_PIDS" ] && echo "$ZOMBIE_PIDS" | xargs -r kill -9 >/dev/null 2>&1
     fi
     # 从 data 文件中获取 CMD 参数
@@ -890,48 +883,48 @@ start_nodepass() {
       # 如果 data 文件中没有 CMD，使用默认值
       CMD="master://0.0.0.0:8080/api?tls=0"
     fi
-    nohup "$WORK_DIR/nodepass" $CMD >/dev/null 2>&1 &
+    nohup "$WORK_DIR/np-master" $CMD >/dev/null 2>&1 &
   elif [ "$SERVICE_MANAGE" = "systemctl" ]; then
-    systemctl start nodepass
+    systemctl start np-master
   elif [ "$SERVICE_MANAGE" = "rc-service" ]; then
-    rc-service nodepass start
+    rc-service np-master start
   elif [ "$SERVICE_MANAGE" = "init.d" ]; then
-    /etc/init.d/nodepass start
+    /etc/init.d/np-master start
   fi
   sleep 2
 }
-# 停止 NodePass 服务
-stop_nodepass() {
+# 停止 NP 服务
+stop_np-master() {
   info " $(text 50) "
   if [ "$IN_CONTAINER" = 1 ] || [ "$SERVICE_MANAGE" = "none" ]; then
-    # 查找所有nodepass进程（包括僵尸进程）并终止
+    # 查找所有np-master进程（包括僵尸进程）并终止
     if [ $(type -p pgrep) ]; then
-      pgrep -f "nodepass" 2>/dev/null | xargs -r kill -9 >/dev/null 2>&1
+      pgrep -f "np-master" 2>/dev/null | xargs -r kill -9 >/dev/null 2>&1
     else
-      ps -ef | grep -v grep | grep "nodepass" | awk '{print $2}' | xargs -r kill -9 >/dev/null 2>&1
+      ps -ef | grep -v grep | grep "np-master" | awk '{print $2}' | xargs -r kill -9 >/dev/null 2>&1
     fi
   elif [ "$SERVICE_MANAGE" = "systemctl" ]; then
-    systemctl stop nodepass
+    systemctl stop np-master
   elif [ "$SERVICE_MANAGE" = "rc-service" ]; then
-    rc-service nodepass stop
+    rc-service np-master stop
   elif [ "$SERVICE_MANAGE" = "init.d" ]; then
-    /etc/init.d/nodepass stop
+    /etc/init.d/np-master stop
   fi
   sleep 2
 }
 # 处理旧应用名
 compatibility_old_binary() {
   # 检查旧文件是否存在
-  [ -f "$WORK_DIR/stable-nodepass" ] && mv "$WORK_DIR/stable-nodepass" "$WORK_DIR/np-stb"
-  [ -f "$WORK_DIR/dev-nodepass" ] && mv "$WORK_DIR/dev-nodepass" "$WORK_DIR/np-dev"
+  [ -f "$WORK_DIR/stable-np-master" ] && mv "$WORK_DIR/stable-np-master" "$WORK_DIR/np-stb"
+  [ -f "$WORK_DIR/dev-np-master" ] && mv "$WORK_DIR/dev-np-master" "$WORK_DIR/np-dev"
   # 检查软链接指向的文件
-  if [ -L "$WORK_DIR/nodepass" ]; then
-    local CURRENT_SYMLINK=$(readlink "$WORK_DIR/nodepass")
+  if [ -L "$WORK_DIR/np-master" ]; then
+    local CURRENT_SYMLINK=$(readlink "$WORK_DIR/np-master")
     # 根据软链接指向的旧文件名更新为新文件名
-    if [[ "$CURRENT_SYMLINK" == *"stable-nodepass"* ]]; then
-      ln -sf "$WORK_DIR/np-stb" "$WORK_DIR/nodepass"
-    elif [[ "$CURRENT_SYMLINK" == *"dev-nodepass"* ]]; then
-      ln -sf "$WORK_DIR/np-dev" "$WORK_DIR/nodepass"
+    if [[ "$CURRENT_SYMLINK" == *"stable-np-master"* ]]; then
+      ln -sf "$WORK_DIR/np-stb" "$WORK_DIR/np-master"
+    elif [[ "$CURRENT_SYMLINK" == *"dev-np-master"* ]]; then
+      ln -sf "$WORK_DIR/np-dev" "$WORK_DIR/np-master"
     fi
   fi
   # 如果缺少LTS版本，检查GitHub包目录
@@ -943,8 +936,8 @@ compatibility_old_binary() {
     get_local_version all
   fi
 }
-# 升级 NodePass
-upgrade_nodepass() {
+# 升级 NP
+upgrade_np-master() {
   # 获取本地版本
   get_local_version all
   info "\n $(text 45) "
@@ -998,8 +991,8 @@ upgrade_nodepass() {
   fi
   # 确定是否需要重启服务
   local NEED_RESTART=0
-  if [ -L "$WORK_DIR/nodepass" ]; then
-    local current_link=$(readlink "$WORK_DIR/nodepass")
+  if [ -L "$WORK_DIR/np-master" ]; then
+    local current_link=$(readlink "$WORK_DIR/np-master")
     for file in "${upgrade_files[@]}"; do
       if [[ "$current_link" == *"$file"* ]]; then
         NEED_RESTART=1
@@ -1008,7 +1001,7 @@ upgrade_nodepass() {
     done
   fi
   # 如果需要重启服务，则停止服务
-  [ "$NEED_RESTART" = 1 ] && stop_nodepass
+  [ "$NEED_RESTART" = 1 ] && stop_np-master
   # 备份并升级文件
   for file in "${upgrade_files[@]}"; do
     # 备份旧版本
@@ -1023,7 +1016,7 @@ upgrade_nodepass() {
     info " $(text 96) "
     sleep 5
    
-    if start_nodepass; then
+    if start_np-master; then
       info " $(text 52) "
       # 清理备份
       for file in "${upgrade_files[@]}"; do
@@ -1036,7 +1029,7 @@ upgrade_nodepass() {
         [ -f "$WORK_DIR/$file.old" ] && mv "$WORK_DIR/$file.old" "$WORK_DIR/$file"
       done
      
-      if start_nodepass; then
+      if start_np-master; then
         info " $(text 54) "
       else
         error " $(text 55) "
@@ -1050,8 +1043,8 @@ upgrade_nodepass() {
     done
   fi
 }
-# 切换 NodePass 版本 (稳定版 <-> 最新版 <-> 经典版)
-switch_nodepass_version() {
+# 切换 NP 版本 (稳定版 <-> 最新版 <-> 经典版)
+switch_np-master_version() {
   # 检查是否已安装
   if [ ! -f "$WORK_DIR/np-stb" ] && [ ! -f "$WORK_DIR/np-dev" ] && [ ! -f "$WORK_DIR/np-lts" ]; then
     warning " $(text 59) "
@@ -1061,7 +1054,7 @@ switch_nodepass_version() {
   # 获取当前使用的版本和版本号
   get_local_version all
   # 备份当前版本链接
-  [ -L "$WORK_DIR/nodepass" ] && cp -f "$WORK_DIR/nodepass" "$WORK_DIR/nodepass.bak"
+  [ -L "$WORK_DIR/np-master" ] && cp -f "$WORK_DIR/np-master" "$WORK_DIR/np-master.bak"
   # 显示当前运行版本
   info "\n $(text 97) $VERSION_TYPE_TEXT $RUNNING_LOCAL_VERSION"
   # 显示可切换的版本选项
@@ -1099,22 +1092,22 @@ switch_nodepass_version() {
     return 1
   fi
   # 停止服务
-  stop_nodepass
+  stop_np-master
   # 切换版本
-  ln -sf "$TARGET_FILE" "$WORK_DIR/nodepass"
+  ln -sf "$TARGET_FILE" "$WORK_DIR/np-master"
   # 添加5秒延迟
   info " $(text 96) " && sleep 5
   # 启动服务
-  if start_nodepass; then
+  if start_np-master; then
     get_local_version running
     info " $(text 87)\n $TARGET_TEXT $RUNNING_LOCAL_VERSION"
   else
     warning " $(text 89) "
     # 尝试回滚到原来的版本
-    [ -f "$WORK_DIR/nodepass.bak" ] && cp -f "$WORK_DIR/nodepass.bak" "$WORK_DIR/nodepass" && start_nodepass
+    [ -f "$WORK_DIR/np-master.bak" ] && cp -f "$WORK_DIR/np-master.bak" "$WORK_DIR/np-master" && start_np-master
   fi
   # 清理备份文件
-  rm -f "$WORK_DIR/nodepass.bak"
+  rm -f "$WORK_DIR/np-master.bak"
 }
 # 解析命令行参数
 parse_args() {
@@ -1441,17 +1434,17 @@ install() {
   echo -e "LANGUAGE=$L\nSERVER_IP=$SERVER_IP" > $WORK_DIR/data
   [[ "$IN_CONTAINER" = 1 || "$SERVICE_MANAGE" = "none" ]] && echo -e "CMD='$CMD'" >> $WORK_DIR/data
   grep -q '.' <<< "$REMOTE_SERVER_INPUT" && grep -q '.' <<< "$REMOTE_PORT_INPUT" && local REMOTE="${REMOTE_PASSWORD_INPUT}${URL_SERVER_IP}:${URL_SERVER_PORT}" && echo -e "REMOTE=$REMOTE" >> $WORK_DIR/data
-  # 移动 NodePass稳定版、最新版和经典版，qrencode 可执行文件并设置权限
+  # 移动 NP稳定版、最新版和经典版，qrencode 可执行文件并设置权限
   mv $TEMP_DIR/np-stb $WORK_DIR/
   mv $TEMP_DIR/np-dev $WORK_DIR/
   mv $TEMP_DIR/np-lts $WORK_DIR/
   mv $TEMP_DIR/qrencode $WORK_DIR/
   chmod +x $WORK_DIR/{np-stb,np-dev,np-lts,qrencode}
-  # 根据选择不同的版本类型，设置 NodePass 的可执行文件的软链接
+  # 根据选择不同的版本类型，设置 NP 的可执行文件的软链接
   case "$VERSION_TYPE_CHOICE" in
-    2) ln -sf "$WORK_DIR/np-dev" "$WORK_DIR/nodepass" ;;
-    3) ln -sf "$WORK_DIR/np-lts" "$WORK_DIR/nodepass" ;;
-    *) ln -sf "$WORK_DIR/np-stb" "$WORK_DIR/nodepass" ;;
+    2) ln -sf "$WORK_DIR/np-dev" "$WORK_DIR/np-master" ;;
+    3) ln -sf "$WORK_DIR/np-lts" "$WORK_DIR/np-master" ;;
+    *) ln -sf "$WORK_DIR/np-stb" "$WORK_DIR/np-master" ;;
   esac
   # 创建gob目录（用于存放配置和备份文件）
   mkdir -p "$WORK_DIR/gob"
@@ -1540,12 +1533,12 @@ create_local_management_script() {
   # 创建完全自包含的本地管理脚本
   cat > $WORK_DIR/np.sh << 'EOF'
 #!/usr/bin/env bash
-# NodePass 本地管理脚本
+# NP 本地管理脚本
 # 完全GitHub版本 - 所有功能内置
-WORK_DIR="/etc/nodepass"
+WORK_DIR="/etc/np-master"
 OFFLINE_DIR="/root/np"
 # 语言文本定义
-E[0]="\n Language:\n 1. English (Default)\n 2. 简体中文"
+E[0]="\n 语言选择:\n 1. English (Default)\n 2. 简体中文"
 C[0]="${E[0]}"
 E[1]="1. Supports three versions: stable, development, and classic; 2. Supports switching between the three versions (np -t); 3. Offline installation mode"
 C[1]="1. 支持稳定版、最新版和经典版三个版本; 2. 支持三个版本间切换 (np -t); 3. GitHub模式"
@@ -1557,7 +1550,7 @@ E[4]="Please choose: "
 C[4]="请选择: "
 E[5]="The script supports Linux systems only. Feedback: [https://github.com/lima-droid/NP-Master/issues]"
 C[5]="本脚本只支持 Linux 系统，问题反馈:[https://github.com/lima-droid/NP-Master/issues]"
-E[6]="NodePass help menu"
+E[6]="np-master help menu"
 C[6]="帮助菜单"
 E[7]="Install dependence-list:"
 C[7]="安装依赖列表:"
@@ -1565,10 +1558,10 @@ E[8]="Failed to install download tool (curl). Please install wget or curl manual
 C[8]="无法安装下载工具（curl）。请手动安装 wget 或 curl。"
 E[9]="Failed to copy required files from offline directory."
 C[9]="从GitHub目录复制必需文件失败。"
-E[10]="NodePass installed successfully!"
-C[10]="NodePass 安装成功！"
-E[11]="NodePass has been uninstalled"
-C[11]="NodePass 已卸载"
+E[10]="np-master installed successfully!"
+C[10]="np-master 安装成功！"
+E[11]="np-master has been uninstalled"
+C[11]="np-master 已卸载"
 E[12]="The external network of the current machine is single-stack:\\\n 1. \${SERVER_IPV4_DEFAULT}\${SERVER_IPV6_DEFAULT}\(default\)\\\n 2. Do not listen on the public network, only listen locally"
 C[12]="检测到本机的外网是单栈:\\\n 1. \${SERVER_IPV4_DEFAULT}\${SERVER_IPV6_DEFAULT}，监听全栈 \(默认\)\\\n 2. 不对公网监听，只监听本地"
 E[13]="Please enter the port (1024-65535, NAT machine must use an open port, press Enter for random port):"
@@ -1581,15 +1574,15 @@ E[16]="0. None TLS encryption (plain TCP) - Fastest performance, no overhead (de
 C[16]="0. 不使用 TLS 加密（明文 TCP） - 最快性能，无开销（默认）\n 1. 自签名证书（自动生成） - 设置简单的良好安全性\n 2. 自定义证书（须预备 crt 和 key 文件） - 具有证书验证的最高安全性"
 E[17]="Please enter the correct option"
 C[17]="请输入正确的选项"
-E[18]="NodePass is already installed, please uninstall it before reinstalling"
-C[18]="NodePass 已安装，请先卸载后再重新安装"
-E[19]="NodePass files copied successfully from offline directory."
-C[19]="已从GitHub目录复制 NodePass 文件"
+E[18]="np-master is already installed, please uninstall it before reinstalling"
+C[18]="np-master 已安装，请先卸载后再重新安装"
+E[19]="np-master files copied successfully from offline directory."
+C[19]="已从GitHub目录复制 np-master 文件"
 E[20]="Cannot check version in offline mode"
 C[20]="GitHub改版无法检查版本"
 E[21]="Running in container environment, skipping service creation and starting process directly"
 C[21]="在容器环境中运行，跳过服务创建，直接启动进程"
-E[22]="NodePass Script Usage / NodePass 脚本使用方法:\n np - Show menu / 显示菜单\n np -i - Install NodePass / 安装 NodePass\n np -u - Uninstall NodePass / 卸载 NodePass\n np -v - Upgrade NodePass / 升级 NodePass\n np -t - Switch NodePass version between stable and development / 在稳定版和最新版之间切换 NodePass\n np -o - Toggle service status (start/stop) / 切换服务状态 (开启/停止)\n np -k - Change NodePass API key / 更换 NodePass API key\n np -c - Change intranet penetration server / 更换内网穿透\n np -s - Show NodePass API info / 显示 NodePass API 信息\n np -h - Show help information / 显示帮助信息\n np -p - Show port forwarding rules / 显示端口转发规则"
+E[22]="np-master Script Usage / np-master 脚本使用方法:\n np - Show menu / 显示菜单\n np -i - Install np-master / 安装 np-master\n np -u - Uninstall np-master / 卸载 np-master\n np -v - Upgrade np-master / 升级 np-master\n np -t - Switch np-master version between stable and development / 在稳定版和最新版之间切换 np-master\n np -o - Toggle service status (start/stop) / 切换服务状态 (开启/停止)\n np -k - Change np-master API key / 更换 np-master API key\n np -c - Change intranet penetration server / 更换内网穿透\n np -s - Show np-master API info / 显示 np-master API 信息\n np -h - Show help information / 显示帮助信息\n np -p - Show port forwarding rules / 显示端口转发规则"
 C[22]="${E[22]}"
 E[23]="Please enter the path to your TLS certificate file:"
 C[23]="请输入您的 TLS 证书文件路径:"
@@ -1615,8 +1608,8 @@ E[33]="stopped"
 C[33]="已停止"
 E[34]="running"
 C[34]="运行中"
-E[35]="NodePass Installation Information:"
-C[35]="NodePass 安装信息:"
+E[35]="np-master Installation Information:"
+C[35]="np-master 安装信息:"
 E[36]="Port is already in use, please try another one."
 C[36]="端口已被占用，请尝试其他端口。"
 E[37]="Using random port:"
@@ -1629,44 +1622,44 @@ E[40]="API KEY:"
 C[40]="API KEY:"
 E[41]="Invalid port number, please enter a number between 1024 and 65535."
 C[41]="无效的端口号，请输入1024到65535之间的数字。"
-E[42]="NodePass service has been stopped"
-C[42]="NodePass 服务已关闭"
-E[43]="NodePass service has been started"
-C[43]="NodePass 服务已开启"
+E[42]="np-master service has been stopped"
+C[42]="np-master 服务已关闭"
+E[43]="np-master service has been started"
+C[43]="np-master 服务已开启"
 E[44]="Unable to get local version"
 C[44]="无法获取本地版本"
-E[45]="NodePass Local Core: Stable \$STABLE_LOCAL_VERSION Dev \$DEV_LOCAL_VERSION LTS \$LTS_LOCAL_VERSION"
-C[45]="NodePass 本地核心: 稳定版 \$STABLE_LOCAL_VERSION 最新版 \$DEV_LOCAL_VERSION 经典版 \$LTS_LOCAL_VERSION"
+E[45]="np-master Local Core: Stable \$STABLE_LOCAL_VERSION Dev \$DEV_LOCAL_VERSION LTS \$LTS_LOCAL_VERSION"
+C[45]="np-master 本地核心: 稳定版 \$STABLE_LOCAL_VERSION 最新版 \$DEV_LOCAL_VERSION 经典版 \$LTS_LOCAL_VERSION"
 E[46]="Offline mode: Cannot check remote versions"
 C[46]="GitHub改版：更新请安装覆盖"
 E[47]="Current version is already the latest, no need to upgrade"
 C[47]="当前已是最新版本，不需要升级"
-E[48]="Uninstall NodePass? (y/N)"
-C[48]="是否卸载 NodePass？(y/N)"
+E[48]="Uninstall np-master? (y/N)"
+C[48]="是否卸载 np-master？(y/N)"
 E[49]="Uninstall cancelled"
 C[49]="取消卸载"
-E[50]="Stopping NodePass service..."
-C[50]="停止 NodePass 服务..."
-E[51]="Starting NodePass service..."
-C[51]="启动 NodePass 服务..."
-E[52]="NodePass upgrade successful!"
-C[52]="NodePass 升级成功！"
-E[53]="Failed to start NodePass service, please check logs"
-C[53]="NodePass 服务启动失败，请检查日志"
+E[50]="Stopping np-master service..."
+C[50]="停止 np-master 服务..."
+E[51]="Starting np-master service..."
+C[51]="启动 np-master 服务..."
+E[52]="np-master upgrade successful!"
+C[52]="np-master 升级成功！"
+E[53]="Failed to start np-master service, please check logs"
+C[53]="np-master 服务启动失败，请检查日志"
 E[54]="Rolled back to previous version"
 C[54]="已回滚到之前的版本"
 E[55]="Rollback failed, please check manually"
 C[55]="回滚失败，请手动检查"
 E[56]="Stop API"
 C[56]="关闭 API"
-E[57]="Create shortcuts successfully: script can be run with [ np ] command, and [ nodepass ] binary is directly executable."
-C[57]="创建快捷方式成功: 脚本可通过 [ np ] 命令运行，[ nodepass ] 应用可直接执行!"
+E[57]="Create shortcuts successfully: script can be run with [ np ] command, and [ np-master ] binary is directly executable."
+C[57]="创建快捷方式成功: 脚本可通过 [ np ] 命令运行，[ np-master ] 应用可直接执行!"
 E[58]="Start API"
 C[58]="开启 API"
-E[59]="NodePass is not installed. Configuration file not found"
-C[59]="NodePass 未安装，配置文件不存在"
-E[60]="NodePass API:"
-C[60]="NodePass API:"
+E[59]="np-master is not installed. Configuration file not found"
+C[59]="np-master 未安装，配置文件不存在"
+E[60]="np-master API:"
+C[60]="np-master API:"
 E[61]="PREFIX can only contain lowercase letters, numbers and slashes (/), please re-enter"
 C[61]="PREFIX 只能包含小写字母、数字和斜杠(/)，请重新输入"
 E[62]="Change KEY"
@@ -1675,16 +1668,16 @@ E[63]="API KEY changed successfully!"
 C[63]="API KEY 更换成功"
 E[64]="Failed to change API KEY"
 C[64]="API KEY 更换失败"
-E[65]="Changing NodePass API KEY..."
-C[65]="正在更换 NodePass API KEY..."
+E[65]="Changing np-master API KEY..."
+C[65]="正在更换 np-master API KEY..."
 E[66]="Current running version: Development GitHub"
 C[66]="当前运行版本为: 最新版"
 E[67]="Current running version: Stable GitHub"
 C[67]="当前运行版本为: 稳定版"
 E[68]="Please enter the IP of the public machine (leave blank to not penetrate):"
-C[68]="如要把内网的 API 穿透到公网的 NodePass 服务端，请输入公网机器的 IP (留空则不穿透):"
+C[68]="如要把内网的 API 穿透到公网的 np-master 服务端，请输入公网机器的 IP (留空则不穿透):"
 E[69]="Please enter the port of the public machine:"
-C[69]="请输入穿透到公网的 NodePass 服务端的端口:"
+C[69]="请输入穿透到公网的 np-master 服务端的端口:"
 E[70]="Change intranet penetration server"
 C[70]="更换内网穿透"
 E[71]="Please enter the password (default is no password):"
@@ -1713,18 +1706,18 @@ E[82]="Running the service of intranet penetration on the server side:"
 C[82]="内网穿透的服务端运行:"
 E[83]="Failed to retrieve intranet penetration instance. Instance ID: \${INSTANCE\_ID}"
 C[83]="获取内网穿透实例失败，实例ID: \${INSTANCE_ID}"
-E[84]="Select NodePass kernel (can switch later with [np -t]): 1. Stable (default, for production) 2. Development (latest features, may be unstable) 3. Classic (long-term support)"
-C[84]="选择 NodePass 内核（安装后可用 [np -t] 切换）：1. 稳定（v1.15.0） 2. 最新（v1.16.0） 3. 经典（v1.10.3）"
+E[84]="Select np-master kernel (can switch later with [np -t]): 1. Stable (default, for production) 2. Development (latest features, may be unstable) 3. Classic (long-term support)"
+C[84]="选择 np-master 内核（安装后可用 [np -t] 切换）：1. 稳定（v1.15.0） 2. 最新（v1.16.0） 3. 经典（v1.10.3）"
 E[85]="Getting machine IP address..."
 C[85]="获取机器 IP 地址中..."
-E[86]="Switching NodePass version..."
-C[86]="正在切换 NodePass 版本..."
+E[86]="Switching np-master version..."
+C[86]="正在切换 np-master 版本..."
 E[87]="Switched successfully"
 C[87]="已成功切换"
 E[88]="Please select the version to switch to (default is 3):"
 C[88]="请选择要切换到的版本 (默认为 3):"
-E[89]="NodePass version switch failed"
-C[89]="NodePass 版本切换失败"
+E[89]="np-master version switch failed"
+C[89]="np-master 版本切换失败"
 E[90]="URI:"
 C[90]="URI:"
 E[91]="No upgrade available for both stable, development and classic versions"
@@ -1756,11 +1749,11 @@ C[103]="取消切换"
 E[104]="Please select the version to switch to (default is 3):"
 C[104]="请选择要切换到的版本 (默认为 3):"
 E[105]="Offline installation - copying files from local directory: $OFFLINE_DIR"
-C[105]="GitHub - 从本地目录复制文件: $OFFLINE_DIR"
+C[105]="GitHub - 从本地目录复制文件: /root/np"
 E[106]="Required file missing: "
 C[106]="缺少必需文件: "
-E[107]="Offline package directory not found: $OFFLINE_DIR"
-C[107]="GitHub包目录未找到: $OFFLINE_DIR"
+E[107]="File directory not found: $OFFLINE_DIR"
+C[107]="文件目录未找到: /root/np"
 E[108]="Checking offline package directory..."
 C[108]="检查GitHub包目录..."
 E[109]="Offline package directory exists"
@@ -1773,12 +1766,12 @@ E[112]="Upgraded "
 C[112]="已升级 "
 E[113]="Local management script created successfully"
 C[113]="本地管理脚本创建成功"
-E[114]="Downloading offline package from backup source..."
-C[114]="从备用源下载GitHub包..."
+E[114]="Downloading files from GitHub..."
+C[114]="正在从 GitHub 下载文件..."
 E[115]="Backup source download completed"
-C[115]="备用源下载完成"
+C[115]="文件下载完成"
 E[116]="Backup source download failed"
-C[116]="备用源下载失败"
+C[116]="文件下载失败，请检查网络"
 E[117]="Deleting temporary files..."
 C[117]="删除临时文件..."
 E[118]="Checking backup file..."
@@ -1813,31 +1806,31 @@ text() {
 }
 # 检查安装状态
 check_install_status() {
-  if [ ! -f "$WORK_DIR/nodepass" ]; then
+  if [ ! -f "$WORK_DIR/np-master" ]; then
     return 2 # 未安装
   fi
  
   # 检查服务状态
   if command -v systemctl >/dev/null 2>&1 && systemctl --version >/dev/null 2>&1; then
-    if systemctl is-active nodepass >/dev/null 2>&1; then
+    if systemctl is-active np-master >/dev/null 2>&1; then
       return 0
     else
       return 1
     fi
-  elif [ -f "/etc/init.d/nodepass" ]; then
-    if [ -f "/var/run/nodepass.pid" ] && kill -0 "$(cat "/var/run/nodepass.pid" 2>/dev/null)" >/dev/null 2>&1; then
+  elif [ -f "/etc/init.d/np-master" ]; then
+    if [ -f "/var/run/np-master.pid" ] && kill -0 "$(cat "/var/run/np-master.pid" 2>/dev/null)" >/dev/null 2>&1; then
       return 0
     else
       return 1
     fi
   elif command -v pgrep >/dev/null 2>&1; then
-    if pgrep -f "nodepass" >/dev/null 2>&1; then
+    if pgrep -f "np-master" >/dev/null 2>&1; then
       return 0
     else
       return 1
     fi
   else
-    if ps -ef | grep -v grep | grep -q "nodepass"; then
+    if ps -ef | grep -v grep | grep -q "np-master"; then
       return 0
     else
       return 1
@@ -1850,11 +1843,11 @@ check_install_status() {
 start_service() {
   info " $(text 51) "
   if command -v systemctl >/dev/null 2>&1; then
-    systemctl start nodepass
-  elif [ -f "/etc/init.d/nodepass" ]; then
-    /etc/init.d/nodepass start
+    systemctl start np-master
+  elif [ -f "/etc/init.d/np-master" ]; then
+    /etc/init.d/np-master start
   else
-    pkill -9 nodepass 2>/dev/null
+    pkill -9 np-master 2>/dev/null
     # 从 data 文件获取 CMD
     local cmd=""
     if [ -f "$WORK_DIR/data" ]; then
@@ -1862,7 +1855,7 @@ start_service() {
       cmd="$CMD"
     fi
     [ -z "$cmd" ] && cmd="master://0.0.0.0:8080/api?tls=0"
-    nohup "$WORK_DIR/nodepass" $cmd >/dev/null 2>&1 &
+    nohup "$WORK_DIR/np-master" $cmd >/dev/null 2>&1 &
   fi
   sleep 2
 }
@@ -1870,11 +1863,11 @@ start_service() {
 stop_service() {
   info " $(text 50) "
   if command -v systemctl >/dev/null 2>&1; then
-    systemctl stop nodepass
-  elif [ -f "/etc/init.d/nodepass" ]; then
-    /etc/init.d/nodepass stop
+    systemctl stop np-master
+  elif [ -f "/etc/init.d/np-master" ]; then
+    /etc/init.d/np-master stop
   else
-    pkill -9 nodepass 2>/dev/null
+    pkill -9 np-master 2>/dev/null
   fi
   sleep 2
 }
@@ -1899,8 +1892,8 @@ get_local_version() {
   local VERSION_TYPE_TEXT=""
   local RUNNING_LOCAL_VERSION=""
  
-  if [ -L "$WORK_DIR/nodepass" ]; then
-    local SYMLINK_TARGET=$(readlink "$WORK_DIR/nodepass")
+  if [ -L "$WORK_DIR/np-master" ]; then
+    local SYMLINK_TARGET=$(readlink "$WORK_DIR/np-master")
     if [[ "$SYMLINK_TARGET" == *"np-stb"* ]]; then
       VERSION_TYPE_TEXT=$(text 67)
     elif [[ "$SYMLINK_TARGET" == *"np-dev"* ]]; then
@@ -1910,7 +1903,7 @@ get_local_version() {
     fi
   fi
  
-  [ -f "$WORK_DIR/nodepass" ] && RUNNING_LOCAL_VERSION=$("$WORK_DIR/nodepass" --version 2>/dev/null | head -n1)
+  [ -f "$WORK_DIR/np-master" ] && RUNNING_LOCAL_VERSION=$("$WORK_DIR/np-master" --version 2>/dev/null | head -n1)
  
   echo "$VERSION_TYPE_TEXT|$RUNNING_LOCAL_VERSION"
 }
@@ -1979,7 +1972,7 @@ switch_version() {
   fi
  
   # 切换版本
-  ln -sf "$TARGET_FILE" "$WORK_DIR/nodepass"
+  ln -sf "$TARGET_FILE" "$WORK_DIR/np-master"
  
   info " $(text 96) "
   sleep 5
@@ -2044,8 +2037,8 @@ upgrade_core() {
  
   # 检查是否需要重启服务
   local NEED_RESTART=0
-  if [ -L "$WORK_DIR/nodepass" ]; then
-    local current_link=$(readlink "$WORK_DIR/nodepass")
+  if [ -L "$WORK_DIR/np-master" ]; then
+    local current_link=$(readlink "$WORK_DIR/np-master")
     for file in "${upgrade_files[@]}"; do
       if [[ "$current_link" == *"$file"* ]]; then
         NEED_RESTART=1
@@ -2119,17 +2112,17 @@ uninstall_node() {
  
   # 禁用服务
   if command -v systemctl >/dev/null 2>&1; then
-    systemctl disable nodepass 2>/dev/null
-    rm -f /etc/systemd/system/nodepass.service
+    systemctl disable np-master 2>/dev/null
+    rm -f /etc/systemd/system/np-master.service
     systemctl daemon-reload 2>/dev/null
-  elif [ -f "/etc/init.d/nodepass" ]; then
-    update-rc.d -f nodepass remove 2>/dev/null || chkconfig nodepass off 2>/dev/null
-    rm -f /etc/init.d/nodepass
+  elif [ -f "/etc/init.d/np-master" ]; then
+    update-rc.d -f np-master remove 2>/dev/null || chkconfig np-master off 2>/dev/null
+    rm -f /etc/init.d/np-master
   fi
  
   # 删除文件
   rm -rf "$WORK_DIR" 2>/dev/null
-  rm -f /usr/bin/np /usr/bin/nodepass 2>/dev/null
+  rm -f /usr/bin/np /usr/bin/np-master 2>/dev/null
  
   info " $(text 11) "
 }
@@ -2146,7 +2139,7 @@ show_status() {
   check_install_status
   local status=$?
  
-  # 显示 NodePass API 状态
+  # 显示 NP API 状态
   case $status in
     0) info " $(text 34) " ;;
     1) info " $(text 33) " ;;
@@ -2183,9 +2176,9 @@ show_status() {
      
       # 方法1：从运行的进程中获取信息
       if command -v pgrep >/dev/null 2>&1; then
-        PROCESS_INFO=$(pgrep -af "nodepass" | grep -v "grep" | head -n1)
+        PROCESS_INFO=$(pgrep -af "np-master" | grep -v "grep" | head -n1)
       else
-        PROCESS_INFO=$(ps -ef | grep -v grep | grep "nodepass" | head -n1)
+        PROCESS_INFO=$(ps -ef | grep -v grep | grep "np-master" | head -n1)
       fi
      
       # 从进程信息中提取配置 - 使用您提供的方法
@@ -2222,8 +2215,8 @@ show_status() {
      
       # 方法2：如果进程信息中没有，从服务文件获取
       if [ -z "$PORT" ] || [ -z "$PREFIX" ]; then
-        if [ -f "/etc/systemd/system/nodepass.service" ]; then
-          local SERVICE_CMD=$(grep "^ExecStart=" "/etc/systemd/system/nodepass.service" | cut -d= -f2- | tr -d '"')
+        if [ -f "/etc/systemd/system/np-master.service" ]; then
+          local SERVICE_CMD=$(grep "^ExecStart=" "/etc/systemd/system/np-master.service" | cut -d= -f2- | tr -d '"')
           if [ -n "$SERVICE_CMD" ]; then
             # 使用相同的方法提取端口
             PORT=$(echo "$SERVICE_CMD" | sed -n 's/.*master:\/\/:\([0-9]\+\).*/\1/p')
@@ -2346,7 +2339,7 @@ show_status() {
 # 显示端口转发规则
 show_port_rules() {
   echo ""
-  echo "          NodePass 端口转发规则"
+  echo "          NP 端口转发规则"
   echo "──────────────────────────────────────────"
   
   # 自动检测系统类型并选择合适的ps命令
@@ -2358,7 +2351,7 @@ show_port_rules() {
     PS_CMD="ps -axu"
   fi
 
-  $PS_CMD 2>/dev/null | grep nodepass | grep -v grep | grep -E 'master://|client://|server://' \
+  $PS_CMD 2>/dev/null | grep np-master | grep -v grep | grep -E 'master://|client://|server://' \
   | sed -E 's/.*master:\/\/:([0-9]+).*/API \1 控制接口/;
             s/.*server:\/\/:([0-9]+)\/([^?]+).*/转发 \1 \2/;
             s/.*client:\/\/:([0-9]+)\/([^?]+).*/转发 \1 \2/;
@@ -2398,7 +2391,7 @@ parse_command() {
   case "$1" in
     -i|--install)
       warning " $(text 8) "
-      warning "请运行: bash <(wget -qO1 https://raw.githubusercontent.com/lima-droid/NP-Master/main/scripts/np.sh) -i"
+      warning "请运行: bash <(wget -qO1 https://raw.githubusercontent.com/lima-droid/np-master/main/scripts/np.sh) -i"
       ;;
     -u|--uninstall)
       uninstall_node
@@ -2450,7 +2443,7 @@ parse_command() {
         case $choice in
           1)
             warning " $(text 8) "
-            warning "运行: bash <(wget -qO1 https://raw.githubusercontent.com/lima-droid/NP-Master/main/scripts/np.sh) -i"
+            warning "运行: bash <(wget -qO1 https://raw.githubusercontent.com/lima-droid/np-master/main/scripts/np.sh) -i"
             ;;
           0) exit 0 ;;
           *) warning " $(text 17) " ;;
@@ -2521,32 +2514,32 @@ create_service() {
   # 如果在容器环境中，不创建服务文件，直接启动进程
   if [ "$IN_CONTAINER" = 1 ] || [ "$SERVICE_MANAGE" = "none" ]; then
     info " $(text 21) "
-    nohup "$WORK_DIR/nodepass" "$CMD" >/dev/null 2>&1 &
+    nohup "$WORK_DIR/np-master" "$CMD" >/dev/null 2>&1 &
     return
   fi
   if [ "$SERVICE_MANAGE" = "systemctl" ]; then
-    cat > /etc/systemd/system/nodepass.service << EOF
+    cat > /etc/systemd/system/np-master.service << EOF
 [Unit]
-Description=NodePass Service
+Description=NP Service
 Documentation=https://github.com/lima-droid/NP-Master
 After=network.target
 [Service]
 Type=simple
-ExecStart=$WORK_DIR/nodepass "$CMD"
+ExecStart=$WORK_DIR/np-master "$CMD"
 Restart=on-failure
 RestartSec=5s
 [Install]
 WantedBy=multi-user.target
 EOF
     systemctl daemon-reload
-    systemctl enable nodepass
-    systemctl start nodepass
+    systemctl enable np-master
+    systemctl start np-master
   elif [ "$SERVICE_MANAGE" = "rc-service" ]; then
-    cat > /etc/init.d/nodepass << EOF
+    cat > /etc/init.d/np-master << EOF
 #!/sbin/openrc-run
-name="nodepass"
-description="NodePass Service"
-command="$WORK_DIR/nodepass"
+name="np-master"
+description="NP Service"
+command="$WORK_DIR/np-master"
 command_args="$CMD"
 command_background=true
 pidfile="/run/\${RC_SVCNAME}.pid"
@@ -2557,25 +2550,25 @@ depend() {
     after net
 }
 EOF
-    chmod +x /etc/init.d/nodepass
-    rc-update add nodepass default
-    rc-service nodepass start
+    chmod +x /etc/init.d/np-master
+    rc-update add np-master default
+    rc-service np-master start
   elif [ "$SERVICE_MANAGE" = "init.d" ]; then
-    cat > /etc/init.d/nodepass << EOF
+    cat > /etc/init.d/np-master << EOF
 #!/bin/sh /etc/rc.common
 START=99
 STOP=10
-NAME="NodePass"
-PROG="$WORK_DIR/nodepass"
+NAME="NP"
+PROG="$WORK_DIR/np-master"
 CMD="$CMD"
-PID="/var/run/nodepass.pid"
+PID="/var/run/np-master.pid"
 start_service() {
-  echo -e "\nStarting NodePass service..."
+  echo -e "\nStarting NP service..."
   \$PROG \$CMD >/dev/null 2>&1 &
   echo \$! > \$PID
 }
 stop_service() {
-  echo "Stopping NodePass service..."
+  echo "Stopping NP service..."
   {
     kill \$(cat \$PID 2>/dev/null)
     rm -f \$PID
@@ -2594,24 +2587,24 @@ restart() {
 }
 status() {
   if [ -f \$PID ] && kill -0 \$(cat \$PID 2>/dev/null) >/dev/null 2>&1; then
-    echo "NodePass is running"
+    echo "NP is running"
   else
-    echo "NodePass is not running"
+    echo "NP is not running"
   fi
 }
 EOF
-    chmod +x /etc/init.d/nodepass
-    /etc/init.d/nodepass enable
-    /etc/init.d/nodepass start
+    chmod +x /etc/init.d/np-master
+    /etc/init.d/np-master enable
+    /etc/init.d/np-master start
   fi
 }
 # 创建快捷方式
 create_shortcut() {
   ln -sf ${WORK_DIR}/np.sh /usr/bin/np
-  ln -sf ${WORK_DIR}/nodepass /usr/bin/nodepass
+  ln -sf ${WORK_DIR}/np-master /usr/bin/np-master
   [ -s /usr/bin/np ] && info "\n $(text 57) "
 }
-# 卸载 NodePass
+# 卸载 NP
 uninstall() {
   echo ""
   reading "\n $(text 48) " CONFIRM
@@ -2622,30 +2615,30 @@ uninstall() {
   fi
  
   if [ "$IN_CONTAINER" = 1 ] || [ "$SERVICE_MANAGE" = "none" ]; then
-    # 查找所有nodepass进程（包括僵尸进程）并终止
+    # 查找所有np-master进程（包括僵尸进程）并终止
     if [ $(type -p pgrep) ]; then
-      pgrep -f "nodepass" | xargs -r kill -9 >/dev/null 2>&1
+      pgrep -f "np-master" | xargs -r kill -9 >/dev/null 2>&1
     else
-      ps -ef | grep -v grep | grep "nodepass" | awk '{print $2}' | xargs -r kill -9 >/dev/null 2>&1
+      ps -ef | grep -v grep | grep "np-master" | awk '{print $2}' | xargs -r kill -9 >/dev/null 2>&1
     fi
   elif [ "$SERVICE_MANAGE" = "systemctl" ]; then
-    systemctl stop nodepass
-    systemctl disable nodepass
-    rm -f /etc/systemd/system/nodepass.service
+    systemctl stop np-master
+    systemctl disable np-master
+    rm -f /etc/systemd/system/np-master.service
     systemctl daemon-reload
   elif [ "$SERVICE_MANAGE" = "rc-service" ]; then
-    rc-service nodepass stop
-    rc-update del nodepass
-    rm -f /etc/init.d/nodepass
+    rc-service np-master stop
+    rc-update del np-master
+    rm -f /etc/init.d/np-master
   elif [ "$SERVICE_MANAGE" = "init.d" ]; then
-    /etc/init.d/nodepass stop
-    /etc/init.d/nodepass disable
-    rm -f /etc/init.d/nodepass
+    /etc/init.d/np-master stop
+    /etc/init.d/np-master disable
+    rm -f /etc/init.d/np-master
   fi
-  rm -rf "$WORK_DIR" /usr/bin/{np,nodepass}
+  rm -rf "$WORK_DIR" /usr/bin/{np,np-master}
   info " $(text 11) "
 }
-# 更换 NodePass API 内网穿透的服务器
+# 更换 NP API 内网穿透的服务器
 change_intranet_penetration_server() {
   reading "\n $(text 75) " REMOTE_SERVER_INPUT
   until validate_ip_address "$REMOTE_SERVER_INPUT"; do
@@ -2698,13 +2691,13 @@ change_intranet_penetration_server() {
     error "\n $(text 77) \n"
   fi
 }
-# 更换 NodePass API key
+# 更换 NP API key
 change_api_key() {
   local INSTALL_STATUS=$1
   info " $(text 65) "
   # 如果服务已安装但未运行，先启动服务
   if [ "$INSTALL_STATUS" = 1 ]; then
-    start_nodepass
+    start_np-master
     local NEED_STOP=1
     sleep 2
   fi
@@ -2737,12 +2730,12 @@ change_api_key() {
     get_api_url output
     info " $(text 40) $NEW_KEY"
     # 如果之前是停止状态，恢复停止状态
-    [ "$NEED_STOP" = 1 ] && stop_nodepass
+    [ "$NEED_STOP" = 1 ] && stop_np-master
     return 0
   else
     warning " $(text 64) "
     # 如果之前是停止状态，恢复停止状态
-    [ "$NEED_STOP" = 1 ] && stop_nodepass
+    [ "$NEED_STOP" = 1 ] && stop_np-master
     return 1
   fi
 }
@@ -2787,8 +2780,8 @@ menu_setting() {
       # 服务未开启时的动作
       ACTION[1]() { on_off $INSTALL_STATUS; exit 0; }
       ACTION[2]() { change_api_key; exit 0; }
-      ACTION[3]() { upgrade_nodepass; exit 0; }
-      ACTION[4]() { switch_nodepass_version; exit 0; }
+      ACTION[3]() { upgrade_np-master; exit 0; }
+      ACTION[4]() { switch_np-master_version; exit 0; }
       ACTION[5]() { uninstall; exit 0; }
       grep -q '.' <<< "$REMOTE" && ACTION[6]() { change_intranet_penetration_server; exit 0; }
       ACTION[0]() { exit 0; }
@@ -2868,11 +2861,11 @@ main() {
       ;;
     -v)
       # 升级操作
-      [ "$INSTALL_STATUS" = 2 ] && warning " ${E[59]}\n ${C[59]} " || upgrade_nodepass
+      [ "$INSTALL_STATUS" = 2 ] && warning " ${E[59]}\n ${C[59]} " || upgrade_np-master
       ;;
     -t)
       # 版本切换操作
-      [ "$INSTALL_STATUS" = 2 ] && warning " ${E[59]}\n ${C[59]} " || switch_nodepass_version
+      [ "$INSTALL_STATUS" = 2 ] && warning " ${E[59]}\n ${C[59]} " || switch_np-master_version
       ;;
     -o)
       # 切换服务状态
