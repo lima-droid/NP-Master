@@ -29,7 +29,7 @@
 bash <(wget -qO- https://raw.githubusercontent.com/lima-droid/NP-Master/main/scripts/np.sh) -i
 ```
 
-> 支持 Linux / Docker 环境，包含稳定版、最新版、经典版三版本。
+> 支持 Linux / Docker 环境，包含经典版、稳定版、最新版三版本。
 
 ---
 
@@ -37,7 +37,7 @@ bash <(wget -qO- https://raw.githubusercontent.com/lima-droid/NP-Master/main/scr
 
 | 特性 | 说明 |
 |------|------|
-| 🎯 **三版本支持** | 稳定版(v1.16.0) / 最新版(v1.17.0) / 经典版(v1.10.3) |
+| 🎯 **三版本支持** | 经典版(v1.10.3) / 稳定版(v1.16.0) / 最新版(v1.17.0) |
 | 🔄 **版本切换** | `np -t` 一键切换，无需重装 |
 | 🚀 **离线安装** | GitHub 离线包模式，双击安装 |
 | 🐧 **全平台** | Debian / Ubuntu / CentOS / Alpine / OpenWRT / Arch |

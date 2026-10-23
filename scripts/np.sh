@@ -13,8 +13,8 @@ trap 'rm -rf "$TEMP_DIR" >/dev/null 2>&1; echo -e "\n"; exit' INT QUIT TERM EXIT
 mkdir -p "$TEMP_DIR"
 E[0]="\n 语言选择:\n 1. 简体中文 \n 2. English"
 C[0]="${E[0]}"
-E[1]="1. Supports three versions: stable, development, and classic; 2. Supports switching between the three versions; 3. Offline installation mode"
-C[1]="1. 支持:稳定版 最新版 经典版; 2. 支持三版本间切换 ; 3. GitHub模式"
+E[1]="1. Supports three versions: classic, stable, and development; 2. Supports switching between the three versions; 3. Offline installation mode"
+C[1]="1. 支持:经典版 稳定版 最新版; 2. 支持三版本间切换 ; 3. GitHub模式"
 E[2]="The script must be run as root, you can enter sudo -i and then download and run again. Feedback: [https://github.com/lima-droid/NP-Master/issues]"
 C[2]="必须以 root 方式运行脚本，可以输入 sudo -i 后重新下载运行，问题反馈:[https://github.com/lima-droid/NP-Master/issues]"
 E[3]="Unsupported architecture: \$(uname -m)"
@@ -101,8 +101,8 @@ E[43]="np-master service has been started"
 C[43]="np-master 服务已开启"
 E[44]="Unable to get local version"
 C[44]="无法获取本地版本"
-E[45]="np-master Local Core: Stable \$STABLE_LOCAL_VERSION Dev \$DEV_LOCAL_VERSION LTS \$LTS_LOCAL_VERSION"
-C[45]="np-master 本地核心: 稳定版 \$STABLE_LOCAL_VERSION 最新版 \$DEV_LOCAL_VERSION 经典版 \$LTS_LOCAL_VERSION"
+E[45]="np-master Local Core: LTS \$LTS_LOCAL_VERSION Stable \$STABLE_LOCAL_VERSION Dev \$DEV_LOCAL_VERSION"
+C[45]="np-master 本地核心: 经典版 \$LTS_LOCAL_VERSION 稳定版 \$STABLE_LOCAL_VERSION 最新版 \$DEV_LOCAL_VERSION"
 E[46]="Offline mode: using locally cached kernels (network unavailable)"
 C[46]="离线模式：使用本地缓存的内核（网络不可用）"
 E[47]="Current version is already the latest, no need to upgrade"
@@ -193,8 +193,8 @@ E[89]="np-master version switch failed"
 C[89]="np-master 版本切换失败"
 E[90]="URI:"
 C[90]="URI:"
-E[91]="No upgrade available for both stable, development and classic versions"
-C[91]="稳定版、最新版和经典版均无可用更新"
+E[91]="No upgrade available for classic, stable or development versions"
+C[91]="经典版、稳定版和最新版均无可用更新"
 E[92]="Stable version can be upgraded from \$STABLE_LOCAL_VERSION to new version"
 C[92]="稳定版可以从 \$STABLE_LOCAL_VERSION 升级到新版本"
 E[93]="Development version can be upgraded from \$DEV_LOCAL_VERSION to new version"
@@ -1095,7 +1095,7 @@ upgrade_np-master() {
     done
   fi
 }
-# 切换 NP 版本 (稳定版 <-> 最新版 <-> 经典版)
+# 切换 NP 版本 (经典版 <-> 稳定版 <-> 最新版)
 switch_np-master_version() {
   # 检查是否已安装
   if [ ! -f "$WORK_DIR/np-stb" ] && [ ! -f "$WORK_DIR/np-dev" ] && [ ! -f "$WORK_DIR/np-lts" ]; then
@@ -1491,7 +1491,7 @@ install() {
       printf 'REMOTE=%q\n' "$REMOTE"
     fi
   } > "$WORK_DIR/data"
-  # 移动 NP稳定版、最新版和经典版，qrencode 可执行文件并设置权限
+  # 移动 NP经典版、稳定版和最新版，qrencode 可执行文件并设置权限
   mv $TEMP_DIR/np-stb $WORK_DIR/
   mv $TEMP_DIR/np-dev $WORK_DIR/
   mv $TEMP_DIR/np-lts $WORK_DIR/
@@ -1595,8 +1595,8 @@ OFFLINE_DIR="/root/np"
 # 语言文本定义
 E[0]="\n 语言选择:\n 1. English (Default)\n 2. 简体中文"
 C[0]="${E[0]}"
-E[1]="1. Supports three versions: stable, development, and classic; 2. Supports switching between the three versions (np -t); 3. Offline installation mode"
-C[1]="1. 支持稳定版、最新版和经典版三个版本; 2. 支持三个版本间切换 (np -t); 3. GitHub模式"
+E[1]="1. Supports three versions: classic, stable, and development; 2. Supports switching between the three versions (np -t); 3. Offline installation mode"
+C[1]="1. 支持经典版、稳定版和最新版三个版本; 2. 支持三个版本间切换 (np -t); 3. GitHub模式"
 E[2]="The script must be run as root, you can enter sudo -i and then download and run again. Feedback: [https://github.com/lima-droid/NP-Master/issues]"
 C[2]="必须以 root 方式运行脚本，可以输入 sudo -i 后重新下载运行，问题反馈:[https://github.com/lima-droid/NP-Master/issues]"
 E[3]="Unsupported architecture: \$(uname -m)"
@@ -1683,8 +1683,8 @@ E[43]="np-master service has been started"
 C[43]="np-master 服务已开启"
 E[44]="Unable to get local version"
 C[44]="无法获取本地版本"
-E[45]="np-master Local Core: Stable \$STABLE_LOCAL_VERSION Dev \$DEV_LOCAL_VERSION LTS \$LTS_LOCAL_VERSION"
-C[45]="np-master 本地核心: 稳定版 \$STABLE_LOCAL_VERSION 最新版 \$DEV_LOCAL_VERSION 经典版 \$LTS_LOCAL_VERSION"
+E[45]="np-master Local Core: LTS \$LTS_LOCAL_VERSION Stable \$STABLE_LOCAL_VERSION Dev \$DEV_LOCAL_VERSION"
+C[45]="np-master 本地核心: 经典版 \$LTS_LOCAL_VERSION 稳定版 \$STABLE_LOCAL_VERSION 最新版 \$DEV_LOCAL_VERSION"
 E[46]="Offline mode: using locally cached kernels (network unavailable)"
 C[46]="离线模式：使用本地缓存的内核（网络不可用）"
 E[47]="Current version is already the latest, no need to upgrade"
@@ -1775,8 +1775,8 @@ E[89]="np-master version switch failed"
 C[89]="np-master 版本切换失败"
 E[90]="URI:"
 C[90]="URI:"
-E[91]="No upgrade available for both stable, development and classic versions"
-C[91]="稳定版、最新版和经典版均无可用更新"
+E[91]="No upgrade available for classic, stable or development versions"
+C[91]="经典版、稳定版和最新版均无可用更新"
 E[92]="Stable version can be upgraded from \$STABLE_LOCAL_VERSION to new version"
 C[92]="稳定版可以从 \$STABLE_LOCAL_VERSION 升级到新版本"
 E[93]="Development version can be upgraded from \$DEV_LOCAL_VERSION to new version"
