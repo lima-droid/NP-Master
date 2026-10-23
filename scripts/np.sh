@@ -3,14 +3,14 @@
 SCRIPT_VERSION='0.0.8'
 # 环境变量用于在Debian或Ubuntu操作系统中设置非交互式（noninteractive）安装模式
 export DEBIAN_FRONTEND=noninteractive
-# 本地GitHub包目录
+# 本地GitHub包目录（升级时的缓存目录，安装后保留）
 OFFLINE_DIR='/root/np'
 # 工作目录和临时目录
-TEMP_DIR='/tmp/np-master'
+TEMP_DIR=$(mktemp -d "${TMPDIR:-/tmp}/np-master.XXXXXX" 2>/dev/null) || TEMP_DIR="/tmp/np-master.$$"
 WORK_DIR='/etc/np-master'
 GOB_DIR="$WORK_DIR/gob"
-trap "rm -rf $TEMP_DIR >/dev/null 2>&1 ; echo -e '\n' ;exit" INT QUIT TERM EXIT
-mkdir -p $TEMP_DIR
+trap 'rm -rf "$TEMP_DIR" >/dev/null 2>&1; echo -e "\n"; exit' INT QUIT TERM EXIT
+mkdir -p "$TEMP_DIR"
 E[0]="\n 语言选择:\n 1. 简体中文 \n 2. English"
 C[0]="${E[0]}"
 E[1]="1. Supports three versions: stable, development, and classic; 2. Supports switching between the three versions; 3. Offline installation mode"
@@ -35,8 +35,8 @@ E[10]="np-master installed successfully!"
 C[10]="np-master 安装成功！"
 E[11]="np-master has been uninstalled"
 C[11]="np-master 已卸载"
-E[12]="The external network of the current machine is single-stack:\\\n 1. \${SERVER_IPV4_DEFAULT}\${SERVER_IPV6_DEFAULT}\(default\)\\\n 2. Do not listen on the public network, only listen locally"
-C[12]="检测到本机的外网是单栈:\\\n 1. \${SERVER_IPV4_DEFAULT}\${SERVER_IPV6_DEFAULT}，监听全栈 \(默认\)\\\n 2. 不对公网监听，只监听本地"
+E[12]="The external network of the current machine is single-stack:\n 1. \${SERVER_IPV4_DEFAULT}\${SERVER_IPV6_DEFAULT}(default)\n 2. Do not listen on the public network, only listen locally"
+C[12]="检测到本机的外网是单栈:\n 1. \${SERVER_IPV4_DEFAULT}\${SERVER_IPV6_DEFAULT}，监听全栈 (默认)\n 2. 不对公网监听，只监听本地"
 E[13]="Please enter the port (1024-65535, NAT machine must use an open port, press Enter for random port):"
 C[13]="请输入端口 (1024-65535，NAT 机器必须使用开放的端口，回车使用随机端口):"
 E[14]="Please enter API prefix (lowercase letters, numbers and / only, press Enter for default \"api\"):"
@@ -55,7 +55,7 @@ E[20]="Cannot check version in offline mode"
 C[20]="GitHub改版无法检查版本"
 E[21]="Running in container environment, skipping service creation and starting process directly"
 C[21]="在容器环境中运行，跳过服务创建，直接启动进程"
-E[22]="np-master Script Usage / np-master 脚本使用方法:\n np - Show menu / 显示菜单\n np -i - Install np-master / 安装 np-master\n np -u - Uninstall np-master / 卸载 np-master\n np -v - Upgrade np-master / 升级 np-master\n np -t - Switch np-master version between stable and development / 在稳定版和最新版之间切换 np-master\n np -o - Toggle service status (start/stop) / 切换服务状态 (开启/停止)\n np -k - Change np-master API key / 更换 np-master API key\n np -c - Change intranet penetration server / 更换内网穿透\n np -s - Show np-master API info / 显示 np-master API 信息\n np -h - Show help information / 显示帮助信息\n np -p - Show port forwarding rules / 显示端口转发规则"
+E[22]="np-master Script Usage / np-master 脚本使用方法:\n np - Show menu / 显示菜单\n np -i - Install np-master / 安装 np-master\n np -u - Uninstall np-master / 卸载 np-master\n np -v - Upgrade np-master / 升级 np-master\n np -t - Switch np-master version between classic, stable and development / 在经典版、稳定版和最新版之间切换 np-master\n np -o - Toggle service status (start/stop) / 切换服务状态 (开启/停止)\n np -k - Change np-master API key / 更换 np-master API key\n np -c - Change intranet penetration server / 更换内网穿透\n np -s - Show np-master API info / 显示 np-master API 信息\n np -h - Show help information / 显示帮助信息\n np -p - Show port forwarding rules / 显示端口转发规则"
 C[22]="${E[22]}"
 E[23]="Please enter the path to your TLS certificate file:"
 C[23]="请输入您的 TLS 证书文件路径:"
@@ -103,8 +103,8 @@ E[44]="Unable to get local version"
 C[44]="无法获取本地版本"
 E[45]="np-master Local Core: Stable \$STABLE_LOCAL_VERSION Dev \$DEV_LOCAL_VERSION LTS \$LTS_LOCAL_VERSION"
 C[45]="np-master 本地核心: 稳定版 \$STABLE_LOCAL_VERSION 最新版 \$DEV_LOCAL_VERSION 经典版 \$LTS_LOCAL_VERSION"
-E[46]="Offline mode: Cannot check remote versions"
-C[46]="GitHub改版：更新请安装覆盖"
+E[46]="Offline mode: using locally cached kernels (network unavailable)"
+C[46]="离线模式：使用本地缓存的内核（网络不可用）"
 E[47]="Current version is already the latest, no need to upgrade"
 C[47]="当前已是最新版本，不需要升级"
 E[48]="Uninstall np-master? (y/N)"
@@ -167,8 +167,8 @@ E[76]="Successfully modified the intranet penetration instance"
 C[76]="成功修改内网穿透实例"
 E[77]="Failed to modify the intranet penetration instance"
 C[77]="修改内网穿透实例失败"
-E[78]="The external network of the current machine is dual-stack:\\\n 1. \${SERVER_IPV4_DEFAULT}，listen all stacks \(default\)\\\n 2. \${SERVER_IPV6_DEFAULT}，listen all stacks\\\n 3. Do not listen on the public network, only listen locally"
-C[78]="检测到本机的外网是双栈:\\\n 1. \${SERVER_IPV4_DEFAULT}，监听全栈 \(默认\)\\\n 2. \${SERVER_IPV6_DEFAULT}，监听全栈\\\n 3. 不对公网监听，只监听本地"
+E[78]="The external network of the current machine is dual-stack:\n 1. \${SERVER_IPV4_DEFAULT}，listen all stacks (default)\n 2. \${SERVER_IPV6_DEFAULT}，listen all stacks\n 3. Do not listen on the public network, only listen locally"
+C[78]="检测到本机的外网是双栈:\n 1. \${SERVER_IPV4_DEFAULT}，监听全栈 (默认)\n 2. \${SERVER_IPV6_DEFAULT}，监听全栈\n 3. 不对公网监听，只监听本地"
 E[79]="Please select or enter the domain or IP directly:"
 C[79]="请选择或者直接输入域名或 IP:"
 E[80]="Script statistics disabled in offline mode"
@@ -179,7 +179,7 @@ E[82]="Running the service of intranet penetration on the server side:"
 C[82]="内网穿透的服务端运行:"
 E[83]="Failed to retrieve intranet penetration instance. Instance ID: \${INSTANCE\_ID}"
 C[83]="获取内网穿透实例失败，实例ID: \${INSTANCE_ID}"
-E[84]="Please select the np-master core to run. Use [np -t] to switch after installation:\\\n 1. Classic version - Long-term support version\\\n 2. Stable version - Suitable for production environments \(default\)\\\n 3. Development version - Contains latest features, may be unstable"
+E[84]="Please select the np-master core to run. Use [np -t] to switch after installation:\n 1. Classic version - Long-term support version\n 2. Stable version - Suitable for production environments (default)\n 3. Development version - Contains latest features, may be unstable"
 C[84]="选择 np-master 内核（安装后可用 [np -t] 切换）：1. 经典（v1.10.3） 2. 稳定（v1.16.0） 3. 最新（v1.17.0）"
 E[85]="Getting machine IP address..."
 C[85]="获取机器 IP 地址中..."
@@ -253,10 +253,14 @@ E[119]="Backup file nodepass.gob.backup created successfully"
 C[119]="备份文件 nodepass.gob.backup 创建成功"
 E[120]="Failed to create backup file"
 C[120]="创建备份文件失败"
-E[121]="Cleaning up offline directory..."
-C[121]="清理离线目录..."
-E[122]="Offline directory cleaned successfully"
-C[122]="离线目录清理成功"
+E[123]="Upgrade np-master? (y/N)"
+C[123]="是否升级 np-master？(y/N)"
+E[124]="Upgrade cancelled"
+C[124]="取消升级"
+E[125]="No compatible kernel binary for architecture \$ARCH. Only x86_64 builds are currently published; please use an x86_64 machine or build from source."
+C[125]="当前架构 \$ARCH 没有可用的内核二进制，官方目前仅发布 x86_64 版本。请使用 x86_64 机器或自行编译。"
+E[126]="Kernel cache kept at \$OFFLINE_DIR for [np -v] offline upgrades."
+C[126]="内核缓存已保留在 \$OFFLINE_DIR，供 [np -v] 离线升级使用。"
 # 自定义字体彩色，read 函数
 warning() { echo -e "\033[31m\033[01m$*\033[0m"; } # 红色
 error() { echo -e "\033[31m\033[01m$*\033[0m" && exit 1; } # 红色
@@ -264,22 +268,56 @@ info() { echo -e "\033[32m\033[01m$*\033[0m"; } # 绿色
 hint() { echo -e "\033[33m\033[01m$*\033[0m"; } # 黄色
 success() { echo -e "\033[32m\033[01m$*\033[0m"; } # 绿色
 reading() { read -rp "$(info "$1")" "$2"; }
-text() { eval echo "\${${L}[$*]}"; }
-# 从 GitHub raw 直接下载文件
+# 安全展开翻译串中的变量（不使用二次 eval，避免文本中的 ; & | 被当作命令执行）
+expand_text() {
+  local s="$1" name val
+  s="${s//\\_/_}"
+  for name in STABLE_LOCAL_VERSION DEV_LOCAL_VERSION LTS_LOCAL_VERSION \
+              SERVER_IPV4_DEFAULT SERVER_IPV6_DEFAULT INSTANCE_ID ARCH \
+              OFFLINE_DIR WORK_DIR SCRIPT_VERSION LTS_MENU_VER STB_MENU_VER DEV_MENU_VER; do
+    val="${!name}"
+    s="${s//\$\{$name\}/$val}"
+    s="${s//\$$name/$val}"
+  done
+  s="${s//\$(uname -m)/$(uname -m)}"
+  printf '%s' "$s"
+}
+text() {
+  L=${L:-C}
+  local ref="${L}[$*]" raw
+  raw=$(eval "printf '%s' \"\${$ref}\"")
+  expand_text "$raw"
+}
+# 从 GitHub raw 直接下载文件（下载到 OFFLINE_DIR，升级时复用）
 download_files_from_github() {
-  
-  # 从 np-master 仓库直接下载三个内核版本
-  mkdir -p /root/np
+  local BASE_URL="https://raw.githubusercontent.com/lima-droid/NP-Master/main/releases"
+  local FAILED=0
+  info " $(text 114) "
+  mkdir -p "$OFFLINE_DIR"
   for BIN in np-stb np-dev np-lts qrencode; do
-    wget -qO /root/np/$BIN https://raw.githubusercontent.com/lima-droid/np-master/main/releases/$BIN
-    chmod +x /root/np/$BIN 2>/dev/null
+    local DEST="$OFFLINE_DIR/$BIN"
+    local TMP_DEST="$OFFLINE_DIR/.${BIN}.download.$$"
+    rm -f "$TMP_DEST"
+    if [ "$DOWNLOAD_TOOL" = "curl" ]; then
+      curl -fsSL --retry 3 --connect-timeout 20 -o "$TMP_DEST" "$BASE_URL/$BIN"
+    else
+      wget -q --tries=3 --timeout=20 -O "$TMP_DEST" "$BASE_URL/$BIN"
+    fi
+    if [ -s "$TMP_DEST" ] && [ "$(wc -c < "$TMP_DEST")" -gt 500000 ]; then
+      chmod +x "$TMP_DEST" 2>/dev/null
+      mv -f "$TMP_DEST" "$DEST"
+    else
+      FAILED=1
+    fi
+    rm -f "$TMP_DEST"
   done
 
-  if [ -f /root/np/np-stb ]; then
-    :; else
+  if [ "$FAILED" -eq 1 ] || [ ! -s "$OFFLINE_DIR/np-stb" ]; then
     warning " $(text 116) "
     return 1
   fi
+  info " $(text 115) "
+  return 0
 }
 # 检查离线目录，没有则直接从 GitHub 下载
 check_and_prepare_offline_files() {
@@ -330,7 +368,27 @@ check_and_prepare_offline_files() {
     cp "$OFFLINE_DIR/$file" "$TEMP_DIR/" || error "复制 $file 失败"
     chmod +x "$TEMP_DIR/$file" 2>/dev/null
   done
- 
+
+  # 验证内核能在当前架构运行（无法执行时退出码为 126/127）
+  for BIN in np-stb np-dev np-lts; do
+    "$TEMP_DIR/$BIN" --version >/dev/null 2>&1
+    local EXEC_RC=$?
+    if [ "$EXEC_RC" -eq 126 ] || [ "$EXEC_RC" -eq 127 ]; then
+      error " $(text 125) "
+    fi
+  done
+  # 读取实际版本号，供安装菜单显示
+  STB_MENU_VER=$("$TEMP_DIR/np-stb" --version 2>/dev/null | head -n1 | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+[^[:space:]]*' | head -n1)
+  DEV_MENU_VER=$("$TEMP_DIR/np-dev" --version 2>/dev/null | head -n1 | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+[^[:space:]]*' | head -n1)
+  LTS_MENU_VER=$("$TEMP_DIR/np-lts" --version 2>/dev/null | head -n1 | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+[^[:space:]]*' | head -n1)
+}
+# 用实际二进制版本号生成安装菜单文案
+set_install_menu_text() {
+  local LTS_VER="${LTS_MENU_VER:-v1.10.3}"
+  local STB_VER="${STB_MENU_VER:-v1.16.0}"
+  local DEV_VER="${DEV_MENU_VER:-v1.17.0}"
+  E[84]="Please select the np-master core to run. Use [np -t] to switch after installation:\n 1. Classic version ${LTS_VER} - Long-term support version\n 2. Stable version ${STB_VER} - Suitable for production environments (default)\n 3. Development version ${DEV_VER} - Contains latest features, may be unstable"
+  C[84]="选择 np-master 内核（安装后可用 [np -t] 切换）：1. 经典（${LTS_VER}） 2. 稳定（${STB_VER}） 3. 最新（${DEV_VER}）"
 }
 # 显示帮助信息
 help() {
@@ -425,6 +483,17 @@ check_system() {
   # 如果在容器环境中，覆盖服务管理方式
   [ "$IN_CONTAINER" = 1 ] && SERVICE_MANAGE="none"
 }
+# 判断 np-master 内核进程是否在运行（按进程名精确匹配，避免误匹配管理脚本路径）
+is_np_running() {
+  local d
+  for d in /proc/[0-9]*; do
+    [ "$(cat "$d/comm" 2>/dev/null)" = "np-master" ] || continue
+    # 跳过僵尸进程
+    [ "$(awk '{print $3}' "$d/stat" 2>/dev/null)" = "Z" ] && continue
+    return 0
+  done
+  return 1
+}
 # 检查安装状态，状态码: 2 未安装， 1 已安装未运行， 0 运行中
 check_install() {
   if [ ! -f "$WORK_DIR/np-master" ]; then
@@ -432,7 +501,7 @@ check_install() {
   else
     # 根据服务管理方式获取 http 或 https
     if [ "$IN_CONTAINER" = 1 ] || [ "$SERVICE_MANAGE" = "none" ]; then
-      if [ -s "${WORK_DIR}/data" ] && grep -q '^CMD=.*tls=0' ${WORK_DIR}/data; then
+      if [ -s "${WORK_DIR}/data" ] && grep -q '^CMD=.*tls=0' "${WORK_DIR}/data"; then
         HTTP_S="http"
       else
         HTTP_S="https"
@@ -448,20 +517,10 @@ check_install() {
     fi
   fi
   if [ "$IN_CONTAINER" = 1 ] || [ "$SERVICE_MANAGE" = "none" ]; then
-    if [ $(type -p pgrep) ]; then
-      # 过滤掉僵尸进程 <defunct>
-      if pgrep -laf "np-master" | grep -vE "grep|<defunct>" | grep -q "np-master"; then
-        return 0
-      else
-        return 1
-      fi
+    if is_np_running; then
+      return 0
     else
-      # 过滤掉僵尸进程 <defunct>
-      if ps -ef | grep -vE "grep|<defunct>" | grep -q "np-master"; then
-        return 0
-      else
-        return 1
-      fi
+      return 1
     fi
   elif [ "$SERVICE_MANAGE" = "systemctl" ] && ! systemctl is-active np-master &>/dev/null; then
     return 1
@@ -484,17 +543,14 @@ check_dependencies() {
   # 检查 wget 和 curl
   if [ -x "$(type -p curl)" ]; then
     DOWNLOAD_TOOL="curl"
-    DOWNLOAD_CMD="curl -sL"
   elif [ -x "$(type -p wget)" ]; then
     DOWNLOAD_TOOL="wget"
-    DOWNLOAD_CMD="wget -q"
     # 如果是 Alpine，先升级 wget
     grep -qi 'alpine' <<< "$SYSTEM" && grep -qi 'busybox' <<< "$(wget 2>&1 | head -n 1)" && apk add --no-cache wget >/dev/null 2>&1
   else
     # 如果都没有，安装 curl
     DEPS_INSTALL+=("curl")
     DOWNLOAD_TOOL="curl"
-    DOWNLOAD_CMD="curl -sL"
   fi
   # 检查是否有 ps 或 pkill 命令
   if [ ! -x "$(type -p ps)" ] && [ ! -x "$(type -p pkill)" ]; then
@@ -664,7 +720,7 @@ get_api_url() {
     if [ "$IN_CONTAINER" = 1 ] || [ "$SERVICE_MANAGE" = "none" ]; then
       if [ -s "$WORK_DIR/data" ] && grep -q "CMD=" "$WORK_DIR/data" ]; then
         # 从data文件中获取CMD
-        local CMD_LINE=$(grep "CMD=" "$WORK_DIR/data" | cut -d= -f2-)
+        local CMD_LINE="$CMD"
       else
         # 如果data文件中没有CMD，则从进程中获取，过滤掉僵尸进程
         if [ $(type -p pgrep) ]; then
@@ -820,20 +876,10 @@ get_local_version() {
 on_off() {
   # 检查 NP 是否正在运行
   if [ "$IN_CONTAINER" = 1 ] || [ "$SERVICE_MANAGE" = "none" ]; then
-    if [ $(type -p pgrep) ]; then
-      # 过滤掉僵尸进程
-      if pgrep -laf "np-master" | grep -vE "<defunct>|grep" | grep -q "np-master"; then
-        RUNNING=1
-      else
-        RUNNING=0
-      fi
+    if is_np_running; then
+      RUNNING=1
     else
-      # 过滤掉僵尸进程
-      if ps -ef | grep -vE "grep|<defunct>" | grep -q "np-master"; then
-        RUNNING=1
-      else
-        RUNNING=0
-      fi
+      RUNNING=0
     fi
   elif [ "$SERVICE_MANAGE" = "systemctl" ]; then
     if systemctl is-active np-master >/dev/null 2>&1; then
@@ -866,14 +912,13 @@ on_off() {
 # 启动 NP 服务
 start_np-master() {
   info " $(text 51) "
-  # 先清理可能存在的僵尸进程
+  # 先清理可能存在的僵尸进程（按进程名精确匹配，避免误伤管理脚本）
   if [ "$IN_CONTAINER" = 1 ] || [ "$SERVICE_MANAGE" = "none" ]; then
-    # 查找僵尸进程并尝试清理
-    if [ $(type -p pgrep) ]; then
-      ZOMBIE_PIDS=$(pgrep -f "np-master" 2>/dev/null | xargs ps -p 2>/dev/null | grep "<defunct>" | awk '{print $1}')
+    if command -v pgrep >/dev/null 2>&1; then
+      ZOMBIE_PIDS=$(pgrep -x "np-master" 2>/dev/null | xargs ps -p 2>/dev/null | grep "<defunct>" | awk '{print $1}')
       [ -n "$ZOMBIE_PIDS" ] && echo "$ZOMBIE_PIDS" | xargs -r kill -9 >/dev/null 2>&1
     else
-      ZOMBIE_PIDS=$(ps -ef | grep -v grep | grep "np-master" | grep "<defunct>" | awk '{print $2}')
+      ZOMBIE_PIDS=$(ps -ef | grep "<defunct>" | grep "np-master" | awk '{print $2}')
       [ -n "$ZOMBIE_PIDS" ] && echo "$ZOMBIE_PIDS" | xargs -r kill -9 >/dev/null 2>&1
     fi
     # 从 data 文件中获取 CMD 参数
@@ -883,7 +928,7 @@ start_np-master() {
       # 如果 data 文件中没有 CMD，使用默认值
       CMD="master://0.0.0.0:8080/api?tls=0"
     fi
-    nohup "$WORK_DIR/np-master" $CMD >/dev/null 2>&1 &
+    nohup "$WORK_DIR/np-master" "$CMD" >/dev/null 2>&1 &
   elif [ "$SERVICE_MANAGE" = "systemctl" ]; then
     systemctl start np-master
   elif [ "$SERVICE_MANAGE" = "rc-service" ]; then
@@ -892,16 +937,23 @@ start_np-master() {
     /etc/init.d/np-master start
   fi
   sleep 2
+  # 返回真实的启动结果，供版本切换回滚判断
+  if [ "$IN_CONTAINER" = 1 ] || [ "$SERVICE_MANAGE" = "none" ]; then
+    is_np_running
+  else
+    check_install >/dev/null 2>&1
+    [ $? -eq 0 ]
+  fi
 }
 # 停止 NP 服务
 stop_np-master() {
   info " $(text 50) "
   if [ "$IN_CONTAINER" = 1 ] || [ "$SERVICE_MANAGE" = "none" ]; then
-    # 查找所有np-master进程（包括僵尸进程）并终止
-    if [ $(type -p pgrep) ]; then
-      pgrep -f "np-master" 2>/dev/null | xargs -r kill -9 >/dev/null 2>&1
+    # 按进程名精确终止内核进程，避免误杀包含 np-master 路径的管理脚本
+    if command -v pkill >/dev/null 2>&1; then
+      pkill -x "np-master" >/dev/null 2>&1
     else
-      ps -ef | grep -v grep | grep "np-master" | awk '{print $2}' | xargs -r kill -9 >/dev/null 2>&1
+      ps -eo pid=,comm= 2>/dev/null | awk '$2 == "np-master" {print $1}' | xargs -r kill -9 >/dev/null 2>&1
     fi
   elif [ "$SERVICE_MANAGE" = "systemctl" ]; then
     systemctl stop np-master
@@ -942,10 +994,13 @@ upgrade_np-master() {
   get_local_version all
   info "\n $(text 45) "
   info " $(text 46) "
-  # 检查GitHub升级目录
-  if [ ! -d "$OFFLINE_DIR" ]; then
-    info " $(text 107) "
-    exit 0
+  # 刷新离线目录，自动获取最新内核；失败时退回到已有缓存（离线升级）
+  if ! download_files_from_github; then
+    if [ ! -s "$OFFLINE_DIR/np-stb" ]; then
+      warning " $(text 107) "
+      return 1
+    fi
+    info " $(text 46) "
   fi
   info " $(text 94) "
   # 检查升级文件
@@ -955,11 +1010,8 @@ upgrade_np-master() {
   # 检查各版本是否有新文件
   for version in "np-stb" "np-dev" "np-lts"; do
     if [ -f "$OFFLINE_DIR/$version" ] && [ -f "$WORK_DIR/$version" ]; then
-      # 获取版本信息
-      local old_ver=$("$WORK_DIR/$version" --version 2>/dev/null | head -n1)
-      local new_ver=$("$OFFLINE_DIR/$version" --version 2>/dev/null | head -n1)
-     
-      if [ -n "$old_ver" ] && [ -n "$new_ver" ] && [ "$old_ver" != "$new_ver" ]; then
+      # 直接比较文件内容，避免依赖 --version 输出格式
+      if ! cmp -s "$WORK_DIR/$version" "$OFFLINE_DIR/$version"; then
         upgrade_files+=("$version")
         upgrade_available=1
         case "$version" in
@@ -984,9 +1036,9 @@ upgrade_np-master() {
     exit 0
   fi
   echo -e "$upgrade_info"
-  reading "\n $(text 48) " UPGRADE_CHOICE
+  reading "\n $(text 123) " UPGRADE_CHOICE
   if [ "${UPGRADE_CHOICE,,}" != "y" ]; then
-    info " $(text 49) "
+    info " $(text 124) "
     exit 0
   fi
   # 确定是否需要重启服务
@@ -1053,30 +1105,31 @@ switch_np-master_version() {
   info " $(text 86) "
   # 获取当前使用的版本和版本号
   get_local_version all
-  # 备份当前版本链接
-  [ -L "$WORK_DIR/np-master" ] && cp -f "$WORK_DIR/np-master" "$WORK_DIR/np-master.bak"
+  # 记录当前软链接目标，失败时按链接恢复（不要复制二进制，避免覆盖其他内核文件）
+  local OLD_TARGET=""
+  [ -L "$WORK_DIR/np-master" ] && OLD_TARGET=$(readlink -f "$WORK_DIR/np-master")
   # 显示当前运行版本
   info "\n $(text 97) $VERSION_TYPE_TEXT $RUNNING_LOCAL_VERSION"
-  # 显示可切换的版本选项
+  # 显示可切换的版本选项（顺序与安装菜单保持一致）
   echo ""
-  hint " 1. $(text 100)"
-  hint " 2. $(text 101)"
-  hint " 3. $(text 102)"
+  hint " 1. $(text 102)"
+  hint " 2. $(text 100)"
+  hint " 3. $(text 101)"
   hint " 4. $(text 103)"
   reading "\n $(text 104) " SWITCH_CHOICE
   SWITCH_CHOICE=${SWITCH_CHOICE:-4}
   case "$SWITCH_CHOICE" in
     1)
+      TARGET_FILE="$WORK_DIR/np-lts"
+      TARGET_TEXT=$(text 98)
+      ;;
+    2)
       TARGET_FILE="$WORK_DIR/np-stb"
       TARGET_TEXT=$(text 67)
       ;;
-    2)
+    3)
       TARGET_FILE="$WORK_DIR/np-dev"
       TARGET_TEXT=$(text 66)
-      ;;
-    3)
-      TARGET_FILE="$WORK_DIR/np-lts"
-      TARGET_TEXT=$(text 98)
       ;;
     4)
       info " $(text 103)"
@@ -1103,16 +1156,17 @@ switch_np-master_version() {
     info " $(text 87)\n $TARGET_TEXT $RUNNING_LOCAL_VERSION"
   else
     warning " $(text 89) "
-    # 尝试回滚到原来的版本
-    [ -f "$WORK_DIR/np-master.bak" ] && cp -f "$WORK_DIR/np-master.bak" "$WORK_DIR/np-master" && start_np-master
+    # 回滚到原来的软链接目标
+    if [ -n "$OLD_TARGET" ] && [ -f "$OLD_TARGET" ]; then
+      ln -sf "$OLD_TARGET" "$WORK_DIR/np-master"
+      start_np-master
+    fi
   fi
-  # 清理备份文件
-  rm -f "$WORK_DIR/np-master.bak"
 }
 # 解析命令行参数
 parse_args() {
   # 初始化变量
-  unset ARGS_SERVER_IP ARGS_PORT ARGS_PREFIX ARGS_TLS_MODE ARGS_LANGUAGE ARGS_CERT_FILE ARGS_KEY_FILE ARGS_VERSION
+  unset ARGS_SERVER_IP ARGS_PORT ARGS_PREFIX ARGS_TLS_MODE ARGS_LANGUAGE ARGS_CERT_FILE ARGS_KEY_FILE
   while [[ $# -gt 0 ]]; do
     case "$1" in
       --server_ip)
@@ -1136,8 +1190,8 @@ parse_args() {
         shift 2
         ;;
       --version)
-        ARGS_VERSION="$2"
-        shift 2
+        echo "$SCRIPT_VERSION"
+        exit 0
         ;;
       --cert_file)
         ARGS_CERT_FILE="$2"
@@ -1153,18 +1207,7 @@ parse_args() {
     esac
   done
 }
-# 清理离线目录函数
-cleanup_offline_directory() {
-  if [ -d "$OFFLINE_DIR" ]; then
-    info " $(text 121) "
-    rm -rf "$OFFLINE_DIR"
-    if [ $? -eq 0 ]; then
-      info " $(text 122) "
-    else
-      warning "清理离线目录失败: $OFFLINE_DIR"
-    fi
-  fi
-}
+# 安装完成后保留离线目录，作为 [np -v] 的离线升级缓存
 # 主安装函数
 install() {
   # 根据用户输入的 IP 地址，选择对应的 IP 地址
@@ -1200,6 +1243,8 @@ install() {
   }
   # 检查并准备GitHub文件
   check_and_prepare_offline_files
+  # 用实际版本号刷新内核选择菜单
+  set_install_menu_text
   # 服务器 IP
   if [ -n "$ARGS_SERVER_IP" ]; then
     SERVER_INPUT="$ARGS_SERVER_IP"
@@ -1381,13 +1426,17 @@ install() {
     info " $(text 15) "
     echo ""
     hint " $(text 16) "
-    reading "\n $(text 38) " TLS_MODE
-    if [ -z "$TLS_MODE" ]; then
-      TLS_MODE=0
-    elif [[ ! "$TLS_MODE" =~ ^[0-2]$ ]]; then
-      warning " $(text 17) "
-      exit 1
-    fi
+    while true; do
+      reading "\n $(text 38) " TLS_MODE
+      if [ -z "$TLS_MODE" ]; then
+        TLS_MODE=0
+        break
+      elif [[ "$TLS_MODE" =~ ^[0-2]$ ]]; then
+        break
+      else
+        warning " $(text 17) "
+      fi
+    done
   fi
   # 如果是自定义证书模式，检查证书文件
   if [ "$TLS_MODE" = "2" ]; then
@@ -1430,10 +1479,18 @@ install() {
   # 构建命令行
   CMD="master://${CMD_SERVER_IP}:${PORT}/${PREFIX}?tls=${TLS_MODE}${CRT_PATH:-}"
   # 移动到工作目录，保存语言选择和服务器IP信息到单个文件
-  mkdir -p $WORK_DIR
-  echo -e "LANGUAGE=$L\nSERVER_IP=$SERVER_IP" > $WORK_DIR/data
-  [[ "$IN_CONTAINER" = 1 || "$SERVICE_MANAGE" = "none" ]] && echo -e "CMD='$CMD'" >> $WORK_DIR/data
-  grep -q '.' <<< "$REMOTE_SERVER_INPUT" && grep -q '.' <<< "$REMOTE_PORT_INPUT" && local REMOTE="${REMOTE_PASSWORD_INPUT}${URL_SERVER_IP}:${URL_SERVER_PORT}" && echo -e "REMOTE=$REMOTE" >> $WORK_DIR/data
+  mkdir -p "$WORK_DIR"
+  {
+    printf 'LANGUAGE=%q\n' "$L"
+    printf 'SERVER_IP=%q\n' "$SERVER_IP"
+    if [ "$IN_CONTAINER" = 1 ] || [ "$SERVICE_MANAGE" = "none" ]; then
+      printf 'CMD=%q\n' "$CMD"
+    fi
+    if [ -n "$REMOTE_SERVER_INPUT" ] && [ -n "$REMOTE_PORT_INPUT" ]; then
+      REMOTE="${REMOTE_PASSWORD_INPUT}${URL_SERVER_IP}:${URL_SERVER_PORT}"
+      printf 'REMOTE=%q\n' "$REMOTE"
+    fi
+  } > "$WORK_DIR/data"
   # 移动 NP稳定版、最新版和经典版，qrencode 可执行文件并设置权限
   mv $TEMP_DIR/np-stb $WORK_DIR/
   mv $TEMP_DIR/np-dev $WORK_DIR/
@@ -1505,12 +1562,10 @@ install() {
     ${WORK_DIR}/qrencode "$URI"
     echo "------------------------"
     
-    # 安装成功后清理离线目录
-    cleanup_offline_directory
+    # 保留离线目录，供 [np -v] 离线升级使用
+    info " $(text 126) "
   else
     warning " $(text 53) "
-    # 如果安装失败，也尝试清理离线目录（可选，这里为了保持环境整洁）
-    cleanup_offline_directory
   fi
   help
 }
@@ -1562,8 +1617,8 @@ E[10]="np-master installed successfully!"
 C[10]="np-master 安装成功！"
 E[11]="np-master has been uninstalled"
 C[11]="np-master 已卸载"
-E[12]="The external network of the current machine is single-stack:\\\n 1. \${SERVER_IPV4_DEFAULT}\${SERVER_IPV6_DEFAULT}\(default\)\\\n 2. Do not listen on the public network, only listen locally"
-C[12]="检测到本机的外网是单栈:\\\n 1. \${SERVER_IPV4_DEFAULT}\${SERVER_IPV6_DEFAULT}，监听全栈 \(默认\)\\\n 2. 不对公网监听，只监听本地"
+E[12]="The external network of the current machine is single-stack:\n 1. \${SERVER_IPV4_DEFAULT}\${SERVER_IPV6_DEFAULT}(default)\n 2. Do not listen on the public network, only listen locally"
+C[12]="检测到本机的外网是单栈:\n 1. \${SERVER_IPV4_DEFAULT}\${SERVER_IPV6_DEFAULT}，监听全栈 (默认)\n 2. 不对公网监听，只监听本地"
 E[13]="Please enter the port (1024-65535, NAT machine must use an open port, press Enter for random port):"
 C[13]="请输入端口 (1024-65535，NAT 机器必须使用开放的端口，回车使用随机端口):"
 E[14]="Please enter API prefix (lowercase letters, numbers and / only, press Enter for default \"api\"):"
@@ -1582,7 +1637,7 @@ E[20]="Cannot check version in offline mode"
 C[20]="GitHub改版无法检查版本"
 E[21]="Running in container environment, skipping service creation and starting process directly"
 C[21]="在容器环境中运行，跳过服务创建，直接启动进程"
-E[22]="np-master Script Usage / np-master 脚本使用方法:\n np - Show menu / 显示菜单\n np -i - Install np-master / 安装 np-master\n np -u - Uninstall np-master / 卸载 np-master\n np -v - Upgrade np-master / 升级 np-master\n np -t - Switch np-master version between stable and development / 在稳定版和最新版之间切换 np-master\n np -o - Toggle service status (start/stop) / 切换服务状态 (开启/停止)\n np -k - Change np-master API key / 更换 np-master API key\n np -c - Change intranet penetration server / 更换内网穿透\n np -s - Show np-master API info / 显示 np-master API 信息\n np -h - Show help information / 显示帮助信息\n np -p - Show port forwarding rules / 显示端口转发规则"
+E[22]="np-master Script Usage / np-master 脚本使用方法:\n np - Show menu / 显示菜单\n np -i - Install np-master / 安装 np-master\n np -u - Uninstall np-master / 卸载 np-master\n np -v - Upgrade np-master / 升级 np-master\n np -t - Switch np-master version between classic, stable and development / 在经典版、稳定版和最新版之间切换 np-master\n np -o - Toggle service status (start/stop) / 切换服务状态 (开启/停止)\n np -k - Change np-master API key / 更换 np-master API key\n np -c - Change intranet penetration server / 更换内网穿透\n np -s - Show np-master API info / 显示 np-master API 信息\n np -h - Show help information / 显示帮助信息\n np -p - Show port forwarding rules / 显示端口转发规则"
 C[22]="${E[22]}"
 E[23]="Please enter the path to your TLS certificate file:"
 C[23]="请输入您的 TLS 证书文件路径:"
@@ -1630,8 +1685,8 @@ E[44]="Unable to get local version"
 C[44]="无法获取本地版本"
 E[45]="np-master Local Core: Stable \$STABLE_LOCAL_VERSION Dev \$DEV_LOCAL_VERSION LTS \$LTS_LOCAL_VERSION"
 C[45]="np-master 本地核心: 稳定版 \$STABLE_LOCAL_VERSION 最新版 \$DEV_LOCAL_VERSION 经典版 \$LTS_LOCAL_VERSION"
-E[46]="Offline mode: Cannot check remote versions"
-C[46]="GitHub改版：更新请安装覆盖"
+E[46]="Offline mode: using locally cached kernels (network unavailable)"
+C[46]="离线模式：使用本地缓存的内核（网络不可用）"
 E[47]="Current version is already the latest, no need to upgrade"
 C[47]="当前已是最新版本，不需要升级"
 E[48]="Uninstall np-master? (y/N)"
@@ -1694,8 +1749,8 @@ E[76]="Successfully modified the intranet penetration instance"
 C[76]="成功修改内网穿透实例"
 E[77]="Failed to modify the intranet penetration instance"
 C[77]="修改内网穿透实例失败"
-E[78]="The external network of the current machine is dual-stack:\\\n 1. \${SERVER_IPV4_DEFAULT}，listen all stacks \(default\)\\\n 2. \${SERVER_IPV6_DEFAULT}，listen all stacks\\\n 3. Do not listen on the public network, only listen locally"
-C[78]="检测到本机的外网是双栈:\\\n 1. \${SERVER_IPV4_DEFAULT}，监听全栈 \(默认\)\\\n 2. \${SERVER_IPV6_DEFAULT}，监听全栈\\\n 3. 不对公网监听，只监听本地"
+E[78]="The external network of the current machine is dual-stack:\n 1. \${SERVER_IPV4_DEFAULT}，listen all stacks (default)\n 2. \${SERVER_IPV6_DEFAULT}，listen all stacks\n 3. Do not listen on the public network, only listen locally"
+C[78]="检测到本机的外网是双栈:\n 1. \${SERVER_IPV4_DEFAULT}，监听全栈 (默认)\n 2. \${SERVER_IPV6_DEFAULT}，监听全栈\n 3. 不对公网监听，只监听本地"
 E[79]="Please select or enter the domain or IP directly:"
 C[79]="请选择或者直接输入域名或 IP:"
 E[80]="Script statistics disabled in offline mode"
@@ -1707,7 +1762,7 @@ C[82]="内网穿透的服务端运行:"
 E[83]="Failed to retrieve intranet penetration instance. Instance ID: \${INSTANCE\_ID}"
 C[83]="获取内网穿透实例失败，实例ID: \${INSTANCE_ID}"
 E[84]="Select np-master kernel (can switch later with [np -t]): 1. Classic (long-term support) 2. Stable (default, for production) 3. Development (latest features, may be unstable)"
-C[84]="选择 np-master 内核（安装后可用 [np -t] 切换）：1. 经典（v1.10.3） 2. 稳定（v1.15.0） 3. 最新（v1.16.0）"
+C[84]="选择 np-master 内核（安装后可用 [np -t] 切换）：1. 经典（v1.10.3） 2. 稳定（v1.16.0） 3. 最新（v1.17.0）"
 E[85]="Getting machine IP address..."
 C[85]="获取机器 IP 地址中..."
 E[86]="Switching np-master version..."
@@ -1780,6 +1835,14 @@ E[119]="Backup file nodepass.gob.backup created successfully"
 C[119]="备份文件 nodepass.gob.backup 创建成功"
 E[120]="Failed to create backup file"
 C[120]="创建备份文件失败"
+E[123]="Upgrade np-master? (y/N)"
+C[123]="是否升级 np-master？(y/N)"
+E[124]="Upgrade cancelled"
+C[124]="取消升级"
+E[125]="No compatible kernel binary for architecture \$ARCH. Only x86_64 builds are currently published; please use an x86_64 machine or build from source."
+C[125]="当前架构 \$ARCH 没有可用的内核二进制，官方目前仅发布 x86_64 版本。请使用 x86_64 机器或自行编译。"
+E[126]="Kernel cache kept at \$OFFLINE_DIR for [np -v] offline upgrades."
+C[126]="内核缓存已保留在 \$OFFLINE_DIR，供 [np -v] 离线升级使用。"
 # 颜色输出函数
 warning() { echo -e "\033[31m\033[01m$*\033[0m"; }
 error() { echo -e "\033[31m\033[01m$*\033[0m" && exit 1; }
@@ -1797,21 +1860,51 @@ select_language() {
   [ -z "$L" ] && L="C"
 }
 # 获取文本
+# 安全展开翻译串中的变量（不使用二次 eval）
+expand_text() {
+  local s="$1" name val
+  s="${s//\\_/_}"
+  for name in STABLE_LOCAL_VERSION DEV_LOCAL_VERSION LTS_LOCAL_VERSION \
+              SERVER_IPV4_DEFAULT SERVER_IPV6_DEFAULT INSTANCE_ID ARCH \
+              OFFLINE_DIR WORK_DIR SCRIPT_VERSION LTS_MENU_VER STB_MENU_VER DEV_MENU_VER; do
+    val="${!name}"
+    s="${s//\$\{$name\}/$val}"
+    s="${s//\$$name/$val}"
+  done
+  s="${s//\$(uname -m)/$(uname -m)}"
+  printf '%s' "$s"
+}
 text() {
+  L=${L:-C}
   if [ "$L" = "E" ]; then
-    eval echo "\${E[$*]}"
+    local raw
+    raw=$(eval "printf '%s' \"\${E[$*]}\"")
+    expand_text "$raw"
   else
-    eval echo "\${C[$*]}"
+    local raw
+    raw=$(eval "printf '%s' \"\${C[$*]}\"")
+    expand_text "$raw"
   fi
+}
+# 判断是否运行在容器中（容器内没有 systemd/OpenRC 时需直接管理进程）
+in_container() {
+  [ -f /.dockerenv ] || grep -q 'docker\|lxc' /proc/1/cgroup 2>/dev/null
 }
 # 检查安装状态
 check_install_status() {
   if [ ! -f "$WORK_DIR/np-master" ]; then
     return 2 # 未安装
   fi
- 
-  # 检查服务状态
-  if command -v systemctl >/dev/null 2>&1 && systemctl --version >/dev/null 2>&1; then
+
+  # 检查服务状态（容器内优先按进程名判断）
+  if in_container; then
+    if command -v pgrep >/dev/null 2>&1; then
+      pgrep -x "np-master" >/dev/null 2>&1
+    else
+      ps -eo comm= 2>/dev/null | grep -qx "np-master"
+    fi
+    return $?
+  elif command -v systemctl >/dev/null 2>&1 && systemctl --version >/dev/null 2>&1; then
     if systemctl is-active np-master >/dev/null 2>&1; then
       return 0
     else
@@ -1824,13 +1917,13 @@ check_install_status() {
       return 1
     fi
   elif command -v pgrep >/dev/null 2>&1; then
-    if pgrep -f "np-master" >/dev/null 2>&1; then
+    if pgrep -x "np-master" >/dev/null 2>&1; then
       return 0
     else
       return 1
     fi
   else
-    if ps -ef | grep -v grep | grep -q "np-master"; then
+    if ps -eo comm= 2>/dev/null | grep -qx "np-master"; then
       return 0
     else
       return 1
@@ -1842,12 +1935,8 @@ check_install_status() {
 # 启动服务
 start_service() {
   info " $(text 51) "
-  if command -v systemctl >/dev/null 2>&1; then
-    systemctl start np-master
-  elif [ -f "/etc/init.d/np-master" ]; then
-    /etc/init.d/np-master start
-  else
-    pkill -9 np-master 2>/dev/null
+  if in_container; then
+    pkill -x "np-master" 2>/dev/null
     # 从 data 文件获取 CMD
     local cmd=""
     if [ -f "$WORK_DIR/data" ]; then
@@ -1855,19 +1944,33 @@ start_service() {
       cmd="$CMD"
     fi
     [ -z "$cmd" ] && cmd="master://0.0.0.0:8080/api?tls=0"
-    nohup "$WORK_DIR/np-master" $cmd >/dev/null 2>&1 &
+    nohup "$WORK_DIR/np-master" "$cmd" >/dev/null 2>&1 &
+  elif command -v systemctl >/dev/null 2>&1; then
+    systemctl start np-master
+  elif [ -f "/etc/init.d/np-master" ]; then
+    /etc/init.d/np-master start
   fi
   sleep 2
+  # 返回真实的启动结果，供版本切换回滚判断
+  if in_container; then
+    if command -v pgrep >/dev/null 2>&1; then
+      pgrep -x "np-master" >/dev/null 2>&1
+    else
+      ps -eo comm= 2>/dev/null | grep -qx "np-master"
+    fi
+  else
+    check_install_status >/dev/null 2>&1
+  fi
 }
 # 停止服务
 stop_service() {
   info " $(text 50) "
-  if command -v systemctl >/dev/null 2>&1; then
+  if in_container; then
+    pkill -x "np-master" 2>/dev/null
+  elif command -v systemctl >/dev/null 2>&1; then
     systemctl stop np-master
   elif [ -f "/etc/init.d/np-master" ]; then
     /etc/init.d/np-master stop
-  else
-    pkill -9 np-master 2>/dev/null
   fi
   sleep 2
 }
@@ -1924,28 +2027,31 @@ switch_version() {
   info " $(text 97) $current_type $current_version"
   echo ""
  
-  # 显示选项
-  echo " 1. $(text 100)"
-  echo " 2. $(text 101)"
-  echo " 3. $(text 102)"
+  # 显示选项（顺序与安装菜单保持一致）
+  echo " 1. $(text 102)"
+  echo " 2. $(text 100)"
+  echo " 3. $(text 101)"
   echo " 4. $(text 103)"
   echo ""
- 
+
   read -p " $(text 104) " SWITCH_CHOICE
   SWITCH_CHOICE=${SWITCH_CHOICE:-4}
- 
+
+  local OLD_TARGET=""
+  [ -L "$WORK_DIR/np-master" ] && OLD_TARGET=$(readlink -f "$WORK_DIR/np-master")
+
   case "$SWITCH_CHOICE" in
     1)
+      TARGET_FILE="$WORK_DIR/np-lts"
+      TARGET_TEXT=$(text 98)
+      ;;
+    2)
       TARGET_FILE="$WORK_DIR/np-stb"
       TARGET_TEXT=$(text 67)
       ;;
-    2)
+    3)
       TARGET_FILE="$WORK_DIR/np-dev"
       TARGET_TEXT=$(text 66)
-      ;;
-    3)
-      TARGET_FILE="$WORK_DIR/np-lts"
-      TARGET_TEXT=$(text 98)
       ;;
     4)
       info " $(text 103)"
@@ -1986,17 +2092,54 @@ switch_version() {
     info "$new_type $new_version"
   else
     warning " $(text 89) "
+    # 回滚到原来的软链接目标
+    if [ -n "$OLD_TARGET" ] && [ -f "$OLD_TARGET" ]; then
+      ln -sf "$OLD_TARGET" "$WORK_DIR/np-master"
+      start_service
+    fi
     return 1
   fi
+}
+# 下载最新内核到离线目录
+download_latest_core() {
+  local BASE_URL="https://raw.githubusercontent.com/lima-droid/NP-Master/main/releases"
+  local FAILED=0
+  info " $(text 114) "
+  mkdir -p "$OFFLINE_DIR"
+  for BIN in np-stb np-dev np-lts qrencode; do
+    local DEST="$OFFLINE_DIR/$BIN"
+    local TMP_DEST="$OFFLINE_DIR/.${BIN}.download.$$"
+    rm -f "$TMP_DEST"
+    if command -v curl >/dev/null 2>&1; then
+      curl -fsSL --retry 3 --connect-timeout 20 -o "$TMP_DEST" "$BASE_URL/$BIN"
+    else
+      wget -q --tries=3 --timeout=20 -O "$TMP_DEST" "$BASE_URL/$BIN"
+    fi
+    if [ -s "$TMP_DEST" ] && [ "$(wc -c < "$TMP_DEST")" -gt 500000 ]; then
+      chmod +x "$TMP_DEST" 2>/dev/null
+      mv -f "$TMP_DEST" "$DEST"
+    else
+      FAILED=1
+    fi
+    rm -f "$TMP_DEST"
+  done
+  if [ "$FAILED" -eq 1 ] || [ ! -s "$OFFLINE_DIR/np-stb" ]; then
+    warning " $(text 116) "
+    return 1
+  fi
+  info " $(text 115) "
+  return 0
 }
 # 升级核心
 upgrade_core() {
   info " $(text 94) "
- 
-  # 检查GitHub升级目录
-  if [ ! -d "$OFFLINE_DIR" ]; then
-    info " $(text 107) "
-    exit 0
+
+  # 优先从 GitHub 刷新内核；失败则使用本地缓存（离线升级）
+  if ! download_latest_core; then
+    if [ ! -s "$OFFLINE_DIR/np-stb" ]; then
+      warning " $(text 107) "
+      return 1
+    fi
   fi
  
   # 检查升级文件
@@ -2006,10 +2149,8 @@ upgrade_core() {
   # 检查各版本
   for version in "np-stb" "np-dev" "np-lts"; do
     if [ -f "$OFFLINE_DIR/$version" ] && [ -f "$WORK_DIR/$version" ]; then
-      local old_ver=$("$WORK_DIR/$version" --version 2>/dev/null | head -n1)
-      local new_ver=$("$OFFLINE_DIR/$version" --version 2>/dev/null | head -n1)
-     
-      if [ "$old_ver" != "$new_ver" ]; then
+      # 直接比较文件内容，避免依赖 --version 输出格式
+      if ! cmp -s "$WORK_DIR/$version" "$OFFLINE_DIR/$version"; then
         upgrade_files+=("$version")
         case "$version" in
           np-stb) upgrade_info+="\n $(text 92)" ;;
@@ -2029,9 +2170,9 @@ upgrade_core() {
   echo " $(text 110) $upgrade_info"
   echo ""
  
-  read -p " $(text 48) " UPGRADE_CHOICE
+  read -p " $(text 123) " UPGRADE_CHOICE
   if [ "${UPGRADE_CHOICE,,}" != "y" ]; then
-    info " $(text 49) "
+    info " $(text 124) "
     exit 0
   fi
  
@@ -2615,11 +2756,11 @@ uninstall() {
   fi
  
   if [ "$IN_CONTAINER" = 1 ] || [ "$SERVICE_MANAGE" = "none" ]; then
-    # 查找所有np-master进程（包括僵尸进程）并终止
-    if [ $(type -p pgrep) ]; then
-      pgrep -f "np-master" | xargs -r kill -9 >/dev/null 2>&1
+    # 按进程名精确终止内核进程，避免误杀管理脚本自身
+    if command -v pkill >/dev/null 2>&1; then
+      pkill -x "np-master" >/dev/null 2>&1
     else
-      ps -ef | grep -v grep | grep "np-master" | awk '{print $2}' | xargs -r kill -9 >/dev/null 2>&1
+      ps -eo pid=,comm= 2>/dev/null | awk '$2 == "np-master" {print $1}' | xargs -r kill -9 >/dev/null 2>&1
     fi
   elif [ "$SERVICE_MANAGE" = "systemctl" ]; then
     systemctl stop np-master
@@ -2831,9 +2972,7 @@ main() {
   [ "${1,,}" = "-h" ] && help && exit 0
   # 检查 root 权限
   check_root
-  # 检查系统信息
-  check_system_info
-  # 检查系统
+  # 检查系统（内部会调用 check_system_info）
   check_system
   # 检查依赖
   check_dependencies

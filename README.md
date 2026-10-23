@@ -37,7 +37,7 @@ bash <(wget -qO- https://raw.githubusercontent.com/lima-droid/NP-Master/main/scr
 
 | 特性 | 说明 |
 |------|------|
-| 🎯 **三版本支持** | 稳定版(v1.15.0) / 最新版(v1.16.0) / 经典版(v1.10.3) |
+| 🎯 **三版本支持** | 稳定版(v1.16.0) / 最新版(v1.17.0) / 经典版(v1.10.3) |
 | 🔄 **版本切换** | `np -t` 一键切换，无需重装 |
 | 🚀 **离线安装** | GitHub 离线包模式，双击安装 |
 | 🐧 **全平台** | Debian / Ubuntu / CentOS / Alpine / OpenWRT / Arch |
@@ -63,11 +63,14 @@ bash <(wget -qO- https://raw.githubusercontent.com/lima-droid/NP-Master/main/scr
 | `np -p` | 🚧 端口转发规则 |
 | `np -h` | ❓ 帮助 |
 
+> `np -v` 会先从 GitHub 拉取最新内核，网络不可用时自动使用本地缓存（`/root/np`）。
+
 ---
 
 ## 📋 系统要求
 
 - 🐧 **Linux**（发行版不限）
+- 🖥️ **x86_64 / amd64**（官方目前仅发布 x86_64 内核二进制）
 - 👑 **root 权限**
 - 📡 **wget** 或 **curl**
 
