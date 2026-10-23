@@ -179,8 +179,8 @@ E[82]="Running the service of intranet penetration on the server side:"
 C[82]="内网穿透的服务端运行:"
 E[83]="Failed to retrieve intranet penetration instance. Instance ID: \${INSTANCE\_ID}"
 C[83]="获取内网穿透实例失败，实例ID: \${INSTANCE_ID}"
-E[84]="Please select the np-master core to run. Use [np -t] to switch after installation:\\\n 1. Stable version - Suitable for production environments \(default\)\\\n 2. Development version - Contains latest features, may be unstable\\\n 3. Classic version - Long-term support version"
-C[84]="选择 np-master 内核（安装后可用 [np -t] 切换）：1. 稳定（v1.16.0） 2. 最新（v1.17.0） 3. 经典（v1.10.3）"
+E[84]="Please select the np-master core to run. Use [np -t] to switch after installation:\\\n 1. Classic version - Long-term support version\\\n 2. Stable version - Suitable for production environments \(default\)\\\n 3. Development version - Contains latest features, may be unstable"
+C[84]="选择 np-master 内核（安装后可用 [np -t] 切换）：1. 经典（v1.10.3） 2. 稳定（v1.16.0） 3. 最新（v1.17.0）"
 E[85]="Getting machine IP address..."
 C[85]="获取机器 IP 地址中..."
 E[86]="Switching np-master version..."
@@ -1231,19 +1231,19 @@ install() {
   fi
   # 询问用户选择版本类型
   case "$VERSION_TYPE_CHOICE" in
-    dev ) VERSION_TYPE_CHOICE="2" ;;
-    lts ) VERSION_TYPE_CHOICE="3" ;;
-    stable ) VERSION_TYPE_CHOICE="1" ;;
+    dev ) VERSION_TYPE_CHOICE="3" ;;
+    lts ) VERSION_TYPE_CHOICE="1" ;;
+    stable ) VERSION_TYPE_CHOICE="2" ;;
   esac
   if [ -z "$VERSION_TYPE_CHOICE" ]; then
     echo ""
     info " $(text 84) "
     echo ""
-    hint " 1. 稳定版 - 适合生产环境"
-    hint " 2. 最新版 - 包含最新功能"
-    hint " 3. 经典版 - 简单粗暴版本"
+    hint " 1. 经典版 - 简单粗暴版本"
+    hint " 2. 稳定版 - 适合生产环境"
+    hint " 3. 最新版 - 包含最新功能"
     reading "\n $(text 4) " VERSION_TYPE_CHOICE
-    VERSION_TYPE_CHOICE=${VERSION_TYPE_CHOICE:-1}
+    VERSION_TYPE_CHOICE=${VERSION_TYPE_CHOICE:-2}
   fi
   # 如果获取到 IPv4 和 IPv6，则提示用户选择
   if grep -q '.' <<< "$SERVER_IPV4_DEFAULT" && grep -q '.' <<< "$SERVER_IPV6_DEFAULT"; then
@@ -1442,8 +1442,8 @@ install() {
   chmod +x $WORK_DIR/{np-stb,np-dev,np-lts,qrencode}
   # 根据选择不同的版本类型，设置 NP 的可执行文件的软链接
   case "$VERSION_TYPE_CHOICE" in
-    2) ln -sf "$WORK_DIR/np-dev" "$WORK_DIR/np-master" ;;
-    3) ln -sf "$WORK_DIR/np-lts" "$WORK_DIR/np-master" ;;
+    1) ln -sf "$WORK_DIR/np-lts" "$WORK_DIR/np-master" ;;
+    3) ln -sf "$WORK_DIR/np-dev" "$WORK_DIR/np-master" ;;
     *) ln -sf "$WORK_DIR/np-stb" "$WORK_DIR/np-master" ;;
   esac
   # 创建gob目录（用于存放配置和备份文件）
@@ -1706,8 +1706,8 @@ E[82]="Running the service of intranet penetration on the server side:"
 C[82]="内网穿透的服务端运行:"
 E[83]="Failed to retrieve intranet penetration instance. Instance ID: \${INSTANCE\_ID}"
 C[83]="获取内网穿透实例失败，实例ID: \${INSTANCE_ID}"
-E[84]="Select np-master kernel (can switch later with [np -t]): 1. Stable (default, for production) 2. Development (latest features, may be unstable) 3. Classic (long-term support)"
-C[84]="选择 np-master 内核（安装后可用 [np -t] 切换）：1. 稳定（v1.15.0） 2. 最新（v1.16.0） 3. 经典（v1.10.3）"
+E[84]="Select np-master kernel (can switch later with [np -t]): 1. Classic (long-term support) 2. Stable (default, for production) 3. Development (latest features, may be unstable)"
+C[84]="选择 np-master 内核（安装后可用 [np -t] 切换）：1. 经典（v1.10.3） 2. 稳定（v1.15.0） 3. 最新（v1.16.0）"
 E[85]="Getting machine IP address..."
 C[85]="获取机器 IP 地址中..."
 E[86]="Switching np-master version..."
